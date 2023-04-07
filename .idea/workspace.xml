@@ -4,24 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3205f5d-2c37-415b-aa4a-06047d04a4a1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/VroomFood.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Driver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Recipe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Restaurant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/RestaurantOwner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Utils/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Utils/OrderStatusType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Utils/VehicleType.java" afterDir="false" />
+    <list default="true" id="f3205f5d-2c37-415b-aa4a-06047d04a4a1" name="Changes" comment="added most of the classes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +41,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -68,11 +53,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680861518542</updated>
-      <workItem from="1680861519146" duration="2440000" />
+      <workItem from="1680861519146" duration="2941000" />
     </task>
+    <task id="LOCAL-00001" summary="added most of the classes">
+      <created>1680864066104</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680864066104</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added most of the classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="added most of the classes" />
   </component>
 </project>
