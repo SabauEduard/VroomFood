@@ -113,7 +113,7 @@ public class Order {
     public String toString() {
         StringBuilder result = new StringBuilder("Order " + this.id + "\n"
                 + "Customer: " + this.customer.getUsername() + "\n"
-                //+ "Driver: " + this.driver.getUsername() + "\n"
+                //+ "Driver: " + this.driver.getUsername() + "\n"  -- Driver business logic is not implemented yet
                 + "Restaurant: " + this.restaurant.getName() + "\n"
                 + "Delivery address: " + this.deliveryAddress + "\n"
                 + "Delivery time: " + this.deliveryTime + "\n"
@@ -123,6 +123,7 @@ public class Order {
         for (Recipe recipe : this.recipes) {
             result.append(recipe.getName()).append(", ");
         }
+        result.append("\n");
         return result.toString();
     }
 }

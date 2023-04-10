@@ -12,14 +12,16 @@ public class Driver extends User{
     private List<Order> orderHistory = new ArrayList<>();
 
 
-    public Driver(String name, String username, String password, String email, String phoneNumber, String address, String vehiclePlate, VehicleType vehicleType, int rating, List<Order> orderHistory) {
+    public Driver(String name, String username, String password, String email, String phoneNumber, String address,
+                  String vehiclePlate, VehicleType vehicleType, int rating, List<Order> orderHistory) {
         super(name, username, password, email, phoneNumber, address);
         this.vehiclePlate = vehiclePlate;
         this.vehicleType = vehicleType;
         this.rating = rating;
         this.orderHistory = orderHistory;
     }
-    public Driver(String name, String username, String password, String email, String phoneNumber, String address, String vehiclePlate, VehicleType vehicleType){
+    public Driver(String name, String username, String password, String email, String phoneNumber, String address,
+                  String vehiclePlate, VehicleType vehicleType){
         super(name, username, password, email, phoneNumber, address);
         this.vehiclePlate = vehiclePlate;
         this.vehicleType = vehicleType;

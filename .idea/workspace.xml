@@ -5,25 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9752bc5-b64e-4f6b-88ee-4e6ea516c483" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Repositories/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/AppService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/NotLoggedInException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/OnlyOwnersCanAddRecipesToRestaurantsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/OnlyOwnersCandAddRestaurantsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/OrderNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/OwnerDoesNotHaveRestaurantException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/RecipeNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/RestaurantDoesNotHaveRecipeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/RestaurantNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/UserNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/UsernameIsTakenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/WrongPasswordException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Models/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Driver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Restaurant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Restaurant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/RestaurantOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/RestaurantOwner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/GenericRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/IGenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/IGenericRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/OrderRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repositories/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/RecipeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/RestaurantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/RestaurantRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Constants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/OrderStatusType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/OrderStatusType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/VehicleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/VehicleType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/AppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/AppService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +35,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -79,7 +80,7 @@
       <workItem from="1680875938740" duration="8000" />
       <workItem from="1680940133131" duration="3915000" />
       <workItem from="1681031732771" duration="28000" />
-      <workItem from="1681123674733" duration="12849000" />
+      <workItem from="1681123674733" duration="19506000" />
     </task>
     <task id="LOCAL-00001" summary="added xmls">
       <created>1680865688867</created>

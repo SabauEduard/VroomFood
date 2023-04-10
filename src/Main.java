@@ -1,17 +1,21 @@
 import Models.Order;
 import Utils.VehicleType;
 import Services.AppService;
-
 import java.util.ArrayList;
 import java.util.List;
+import Exceptions.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void runTests(){
         // Registering some users
         AppService.registerCustomer("John Doe", "johndoe", "123456", "johndoe1@gmail.com", "123456789", "123 Main St");
         AppService.registerCustomer("Mike Doe", "mikedoe", "123456", "mikedoe555@gmail.com", "123456789", "123 Side St");
         AppService.registerRestaurantOwner("Jane Doe", "janedoe", "123456", "janedoe32@yahoo.com", "987654321", "456 Main St");
+        AppService.registerRestaurantOwner("Mike Smith", "mikesmith", "123456", "mikesmith@gmail.com", "987654321", "456 Side St");
         AppService.registerDriver("John Smith", "johnsmith", "123456", "johnsmith10@unibuc.ro", "123456789", "123 Main St", "B 123 ABC", VehicleType.BIKE);
+
+        // Sorting the users by name
+        AppService.sortUsersByName();
 
         // Logging in as a restaurant owner
         AppService.login("janedoe", "123456");
@@ -56,5 +60,70 @@ public class Main {
 
         // Printing the order
         System.out.println(order);
+
+        // Testing the exception handling
+
+        // Trying to register a user with an already taken username
+        try {
+            AppService.registerCustomer("Joh Doeeee", "johndoe", "123456", "johndoe@gmail.com", "123456789", "123 Main St");
+        } catch (UsernameIsTakenException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Trying to log out without being logged in
+        try {
+            AppService.logout();
+        } catch (NotLoggedInException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Trying to log in with the wrong password
+        try {
+            AppService.login("johndoe", "1234567");
+        } catch (WrongPasswordException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Trying to add a restaurant as a Customer
+        try {
+            AppService.login("johndoe", "123456");
+            AppService.addRestaurant("Blue Margarita", "123 Main St", "123456789");
+        } catch (OnlyOwnersCandAddRestaurantsException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Trying to add a recipe as a Customer
+        try {
+            AppService.addRecipeToRestaurant("Simple pizza", "Blue Margarita");
+        } catch (OnlyOwnersCanAddRecipesToRestaurantsException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Trying to add a non-existent recipe to a restaurant
+        try {
+            AppService.login("janedoe", "123456"); // Logging in as a restaurant owner
+            AppService.addRecipeToRestaurant("Cous cous", "Blue Margarita");
+        } catch (RecipeNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Trying to add a recipe to a non-existent restaurant
+        try {
+            AppService.addRecipeToRestaurant("Simple pizza", "Blue Margaritaaaaa");
+        } catch (RestaurantNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Trying to add a recipe to a restaurant that doesn't belong to the logged in restaurant owner
+        try{
+            AppService.login("mikesmith", "123456"); // Logging in as a restaurant owner
+            AppService.addRecipeToRestaurant("Simple pizza", "Blue Margarita"); // User does not own Blue Margarita
+        } catch (OwnerDoesNotHaveRestaurantException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    public static void main(String[] args) {
+        runTests();
     }
 }

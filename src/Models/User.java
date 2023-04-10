@@ -2,13 +2,13 @@ package Models;
 
 public abstract class User {
     private static int idCounter = 0;
-    private int id;
-    private String name;
-    private String username;
-    private String password;
-    private String email;
-    private String phoneNumber;
-    private String address;
+    protected int id;
+    protected String name;
+    protected String username;
+    protected String password;
+    protected String email;
+    protected String phoneNumber;
+    protected String address;
 
     public User(String name, String username, String password, String email, String phoneNumber, String address) {
         this.id = idCounter++;
@@ -74,5 +74,19 @@ public abstract class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        User user = (User) obj;
+        return user.getId() == this.id;
     }
 }
