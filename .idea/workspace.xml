@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9752bc5-b64e-4f6b-88ee-4e6ea516c483" name="Changes" comment="added xmls" />
+    <list default="true" id="a9752bc5-b64e-4f6b-88ee-4e6ea516c483" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Repositories/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/AppService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Driver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Restaurant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Restaurant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/RestaurantOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/RestaurantOwner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/GenericRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/IGenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/IGenericRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/RecipeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/RestaurantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/RestaurantRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/OrderStatusType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/OrderStatusType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/VehicleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/VehicleType.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -22,9 +54,15 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/Altele/Proiecte Java/VroomFood",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -36,7 +74,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680865610691</updated>
-      <workItem from="1680865612260" duration="218000" />
+      <workItem from="1680865612260" duration="917000" />
+      <workItem from="1680871591076" duration="4172000" />
+      <workItem from="1680875938740" duration="8000" />
+      <workItem from="1680940133131" duration="3915000" />
+      <workItem from="1681031732771" duration="28000" />
+      <workItem from="1681123674733" duration="12849000" />
     </task>
     <task id="LOCAL-00001" summary="added xmls">
       <created>1680865688867</created>
@@ -50,6 +93,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added xmls" />

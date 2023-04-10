@@ -1,18 +1,33 @@
 package Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RestaurantOwner extends User{
-    private Restaurant restaurant;
+    private List<Restaurant> restaurants = new ArrayList<>();
 
-    public RestaurantOwner(String name, String username, String password, String email, String phoneNumber, Restaurant restaurant) {
-        super(name, username, password, email, phoneNumber);
-        this.restaurant = restaurant;
+    public RestaurantOwner(String name, String username, String password, String email, String phoneNumber, String address, List<Restaurant> restaurants) {
+        super(name, username, password, email, phoneNumber, address);
+        this.restaurants = restaurants;
+    }
+    public RestaurantOwner(String name, String username, String password, String email, String phoneNumber, String address){
+        super(name, username, password, email, phoneNumber, address);
+    }
+    public void addRestaurant(Restaurant restaurant){
+        this.restaurants.add(restaurant);
+    }
+    public void removeRestaurant(Restaurant restaurant){
+        this.restaurants.remove(restaurant);
+    }
+    public boolean hasRestaurant(Restaurant restaurant){
+        return this.restaurants.contains(restaurant);
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
     }
 }

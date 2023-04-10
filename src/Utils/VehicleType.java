@@ -1,5 +1,5 @@
 package Utils;
 
 public enum VehicleType {
-    CAR, MOTORCYCLE, BICYCLE, ON_FOOT
+    CAR, MOTORCYCLE, BIKE, ON_FOOT
 }

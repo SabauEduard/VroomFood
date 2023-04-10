@@ -3,6 +3,8 @@ package Models;
 import java.util.List;
 
 public class Recipe {
+    private static int idCounter = 0;
+    private int id;
     private String name;
     private String description;
     private Integer price;
@@ -10,6 +12,7 @@ public class Recipe {
     private List<String> ingredientList;
 
     public Recipe(String name, String description, Integer price, Integer preparationTime, List<String> ingredientList) {
+        this.id = idCounter++;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -55,5 +58,13 @@ public class Recipe {
 
     public void setIngredientList(List<String> ingredientList) {
         this.ingredientList = ingredientList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

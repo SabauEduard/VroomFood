@@ -1,18 +1,23 @@
 package Models;
 
-public class User {
+public abstract class User {
+    private static int idCounter = 0;
+    private int id;
     private String name;
     private String username;
     private String password;
     private String email;
     private String phoneNumber;
+    private String address;
 
-    public User(String name, String username, String password, String email, String phoneNumber) {
+    public User(String name, String username, String password, String email, String phoneNumber, String address) {
+        this.id = idCounter++;
         this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     public String getName() {
@@ -53,5 +58,21 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
