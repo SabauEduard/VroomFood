@@ -5,25 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9752bc5-b64e-4f6b-88ee-4e6ea516c483" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/NotLoggedInException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/OnlyOwnersCanAddRecipesToRestaurantsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/OnlyOwnersCandAddRestaurantsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/OrderNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/OwnerDoesNotHaveRestaurantException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/RecipeNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/RestaurantDoesNotHaveRecipeException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/RestaurantNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/UserNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/UsernameIsTakenException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/WrongPasswordException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/CustomerDoesNotOwnOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/OnlyOwnersCanRemoveRecipesFromRestaurantsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/OnlyOwnersCanRemoveRestaurantsException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/RecipeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/GenericRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/IGenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/IGenericRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/AppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/AppService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,22 +39,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Altele/Proiecte Java/VroomFood",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Altele/Proiecte Java/VroomFood&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -80,7 +68,9 @@
       <workItem from="1680875938740" duration="8000" />
       <workItem from="1680940133131" duration="3915000" />
       <workItem from="1681031732771" duration="28000" />
-      <workItem from="1681123674733" duration="19506000" />
+      <workItem from="1681123674733" duration="19676000" />
+      <workItem from="1681199803631" duration="156000" />
+      <workItem from="1681224979544" duration="2308000" />
     </task>
     <task id="LOCAL-00001" summary="added xmls">
       <created>1680865688867</created>

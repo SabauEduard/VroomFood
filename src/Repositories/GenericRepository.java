@@ -14,7 +14,7 @@ public class GenericRepository<T> implements IGenericRepository<T>{
             objectList = new ArrayList<>();
         objectList.add(object);
     }
-    public void delete(T object) {
+    public void remove(T object) {
         if(objectList == null)
             return;
         objectList.remove(object);

@@ -88,7 +88,6 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
 ## Services Structure
 1. AppService
    * All the functionalities of the app described above
-
 ## Utils Structure
 1. OrderStatusType (enum)
    * PENDING

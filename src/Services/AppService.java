@@ -87,10 +87,25 @@ public class AppService {
         checkRecipe(recipeName, order);
         order.addRecipe(recipe);
     }
-    public static void cancelOrder(Order order) throws OrderNotFoundException{
+    public static void cancelOrder(Order order) throws OrderNotFoundException, NotLoggedInException, OwnerDoesNotHaveRestaurantException{
         if (order == null)
             throw new OrderNotFoundException("Order not found \n");
+        if (currentUser == null)
+            throw new NotLoggedInException("There is no user currently logged in \n");
+        if (currentUser instanceof RestaurantOwner restaurantOwner){
+            if (!restaurantOwner.hasRestaurant(order.getRestaurant()))
+                throw new OwnerDoesNotHaveRestaurantException("You are not logged in as the owner of this restaurant \n");
+        }
+        else if(currentUser instanceof Driver){
+            //To do: check if the driver is assigned to this order
+        }
+        else if(currentUser instanceof Customer customer){
+            if (!customer.equals(order.getCustomer()))
+                throw new CustomerDoesNotOwnOrder("You are not logged in as the customer of this order \n");
+        }
         order.setStatus(OrderStatusType.CANCELLED);
+        if(ordersToDeliver.contains(order))
+            ordersToDeliver.remove(order);
     }
     public static void removeRecipe(String recipeName, Order order) throws RecipeNotFoundException{
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
@@ -109,21 +124,31 @@ public class AppService {
         recipeRepository.add(recipe);
     }
     public static void addRestaurant(String restaurantName, String address, String phoneNumber) throws OnlyOwnersCandAddRestaurantsException{
-        if(!(currentUser instanceof RestaurantOwner))
+        if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCandAddRestaurantsException("Only restaurant owners can add restaurants \n");
-        RestaurantOwner restaurantOwner = (RestaurantOwner) currentUser;
         Restaurant restaurant = new Restaurant(restaurantName, address, phoneNumber, restaurantOwner);
         restaurantRepository.add(restaurant);
         restaurantOwner.addRestaurant(restaurant);
+    }
+    public static void removeRestaurant(String restaurantName) throws OnlyOwnersCanRemoveRestaurantsException,
+            RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
+        if(!(currentUser instanceof RestaurantOwner restaurantOwner))
+            throw new OnlyOwnersCanRemoveRestaurantsException("Only restaurant owners can remove restaurants \n");
+        Restaurant restaurant = restaurantRepository.getRestaurantByName(restaurantName);
+        if (restaurant == null)
+            throw new RestaurantNotFoundException("Restaurant not found \n");
+        if (!restaurantOwner.hasRestaurant(restaurant))
+            throw new OwnerDoesNotHaveRestaurantException("User does not own this restaurant \n");
+        restaurantRepository.remove(restaurant);
+        restaurantOwner.removeRestaurant(restaurant);
     }
     public static void sortUsersByName(){
         userRepository.sortUsersByName();
     }
     public static void addRecipeToRestaurant(String recipeName, String restaurantName) throws OnlyOwnersCanAddRecipesToRestaurantsException,
             RecipeNotFoundException, RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
-        if(!(currentUser instanceof RestaurantOwner))
+        if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCanAddRecipesToRestaurantsException("Only restaurant owners can add recipes to restaurants \n");
-        RestaurantOwner restaurantOwner = (RestaurantOwner) currentUser;
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
         if (recipe == null)
             throw new RecipeNotFoundException("Recipe not found \n");
@@ -133,6 +158,21 @@ public class AppService {
         if (!restaurantOwner.hasRestaurant(restaurant))
             throw new OwnerDoesNotHaveRestaurantException("User does not own this restaurant \n");
         restaurant.addRecipe(recipe);
+    }
+
+    public static void removeRecipeFromRestaurant(String recipeName, String restaurantName) throws OnlyOwnersCanRemoveRecipesFromRestaurantsException,
+            RecipeNotFoundException, RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
+        if(!(currentUser instanceof RestaurantOwner restaurantOwner))
+            throw new OnlyOwnersCanRemoveRecipesFromRestaurantsException("Only restaurant owners can remove recipes from restaurants \n");
+        Recipe recipe = recipeRepository.getRecipeByName(recipeName);
+        if (recipe == null)
+            throw new RecipeNotFoundException("Recipe not found \n");
+        Restaurant restaurant = restaurantRepository.getRestaurantByName(restaurantName);
+        if (restaurant == null)
+            throw new RestaurantNotFoundException("Restaurant not found \n");
+        if (!restaurantOwner.hasRestaurant(restaurant))
+            throw new OwnerDoesNotHaveRestaurantException("User does not own this restaurant \n");
+        restaurant.removeRecipe(recipe);
     }
     public static UserRepository getUserRepository() {
         return userRepository;
