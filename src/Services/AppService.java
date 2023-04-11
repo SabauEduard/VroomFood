@@ -145,6 +145,10 @@ public class AppService {
     public static void sortUsersByName(){
         userRepository.sortUsersByName();
     }
+
+    public static void printUsers(){
+        userRepository.printUsers();
+    }
     public static void addRecipeToRestaurant(String recipeName, String restaurantName) throws OnlyOwnersCanAddRecipesToRestaurantsException,
             RecipeNotFoundException, RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
@@ -173,6 +177,20 @@ public class AppService {
         if (!restaurantOwner.hasRestaurant(restaurant))
             throw new OwnerDoesNotHaveRestaurantException("User does not own this restaurant \n");
         restaurant.removeRecipe(recipe);
+    }
+
+    public static void printOrderHistory(){
+        if (currentUser == null)
+            throw new NotLoggedInException("There is no user currently logged in \n");
+        if (currentUser instanceof RestaurantOwner)
+            throw new RestaurantOwnerDoesNotHaveOrderHistoryException("Restaurant owners do not have order history \n");
+        List<Order> orders = null;
+        if (currentUser instanceof Driver)
+            orders = orderRepository.getOrdersByDriver((Driver) currentUser);
+        else if (currentUser instanceof Customer)
+            orders = orderRepository.getOrdersByCustomer((Customer) currentUser);
+        for (Order order : orders)
+            System.out.println(order);
     }
     public static UserRepository getUserRepository() {
         return userRepository;

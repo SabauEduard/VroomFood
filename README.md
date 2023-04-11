@@ -17,16 +17,16 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
    * Remove recipes from the order
    * Send the order
    * Cancel a order
-   * View their order history **(to be implemented)**
+   * View their order history 
 3. Drivers
    * Accept an order **(to be implemented)**
    * Mark an order as delivered **(to be implemented)**
-   * View their order history **(to be implemented)**
+   * View their order history
 4. Restaurant owners
    * Add a restaurant
    * Add a recipe to the menu of their restaurant
-   * Remove a recipe from the menu of their restaurant **(to be implemented)**
-   * Remove a restaurant **(to be implemented)**
+   * Remove a recipe from the menu of their restaurant 
+   * Remove a restaurant 
 
 
 ## A list of the entities in the system is listed below:
@@ -87,7 +87,9 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
 
 ## Services Structure
 1. AppService
-   * All the functionalities of the app described above
+   * All the functionalities of the app described above and some protected helper functions as estimateDeliveryTime. The service calls upon
+        the repositories to perform the actions.
+   
 ## Utils Structure
 1. OrderStatusType (enum)
    * PENDING

@@ -17,6 +17,9 @@ public class Main {
         // Sorting the users by name
         AppService.sortUsersByName();
 
+        // Printing the users
+        AppService.printUsers();
+
         // Logging in as a restaurant owner
         AppService.login("janedoe", "123456");
 
@@ -55,11 +58,19 @@ public class Main {
         // Sending the order
         AppService.sendOrder(order);
 
+        // Printing the order history of the customer
+        AppService.printOrderHistory();
+
         // Logging out
         AppService.logout();
 
         // Printing the order
         System.out.println(order);
+
+        // Removing a recipe from a restaurant
+        AppService.login("janedoe", "123456");
+        AppService.removeRecipeFromRestaurant("Ratatouille", "Blue Margarita");
+        AppService.logout();
 
         // Testing the exception handling
 

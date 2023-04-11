@@ -3,23 +3,27 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantOwner extends User{
+public class RestaurantOwner extends User {
     private List<Restaurant> restaurants = new ArrayList<>();
 
     public RestaurantOwner(String name, String username, String password, String email, String phoneNumber, String address, List<Restaurant> restaurants) {
         super(name, username, password, email, phoneNumber, address);
         this.restaurants = restaurants;
     }
-    public RestaurantOwner(String name, String username, String password, String email, String phoneNumber, String address){
+
+    public RestaurantOwner(String name, String username, String password, String email, String phoneNumber, String address) {
         super(name, username, password, email, phoneNumber, address);
     }
-    public void addRestaurant(Restaurant restaurant){
+
+    public void addRestaurant(Restaurant restaurant) {
         this.restaurants.add(restaurant);
     }
-    public void removeRestaurant(Restaurant restaurant){
+
+    public void removeRestaurant(Restaurant restaurant) {
         this.restaurants.remove(restaurant);
     }
-    public boolean hasRestaurant(Restaurant restaurant){
+
+    public boolean hasRestaurant(Restaurant restaurant) {
         return this.restaurants.contains(restaurant);
     }
 

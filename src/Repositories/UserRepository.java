@@ -23,4 +23,16 @@ public class UserRepository extends GenericRepository<User>{
         }
         return null;
     }
+    public User getUserByEmail(String email){
+        for(User user : objectList){
+            if(user.getEmail().equals(email))
+                return user;
+        }
+        return null;
+    }
+    public void printUsers(){
+        for(User user : objectList){
+            System.out.println(user);
+        }
+    }
 }

@@ -89,4 +89,13 @@ public abstract class User {
         User user = (User) obj;
         return user.getId() == this.id;
     }
+
+    public String toString(){
+       return "Name: " + this.name + "\n"
+                + "Username: " + this.username + "\n"
+                + "Password: " + this.password + "\n"
+                + "Email: " + this.email + "\n"
+                + "Phone Number: " + this.phoneNumber + "\n"
+                + "Address: " + this.address + "\n";
+    }
 }
