@@ -5,7 +5,7 @@ import Utils.VehicleType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Driver extends User{
+public class Driver extends User implements java.io.Serializable{
     private String vehiclePlate;
     private VehicleType vehicleType;
     int rating;

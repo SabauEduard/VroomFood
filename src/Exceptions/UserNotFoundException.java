@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class UserNotFoundException extends RuntimeException{
-    public UserNotFoundException(String message) {
-        super(message);
+
+    private static final String MESSAGE = "This is not a registered user \n";
+    public UserNotFoundException() {
+        super(MESSAGE);
     }
 }

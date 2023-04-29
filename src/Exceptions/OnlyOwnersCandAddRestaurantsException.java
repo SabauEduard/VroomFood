@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class OnlyOwnersCandAddRestaurantsException extends RuntimeException{
-    public OnlyOwnersCandAddRestaurantsException(String message) {
-        super(message);
+
+    private static final String MESSAGE = "Only restaurant owners can add restaurants \n";
+    public OnlyOwnersCandAddRestaurantsException() {
+        super(MESSAGE);
     }
 }

@@ -3,7 +3,7 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer extends User{
+public class Customer extends User implements java.io.Serializable{
     private List<Order> orderHistory = new ArrayList<>();
 
     public Customer(String name, String username, String password, String email, String phoneNumber, String address, List<Order> orderHistory) {

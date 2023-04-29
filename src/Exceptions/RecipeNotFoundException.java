@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class RecipeNotFoundException extends RuntimeException{
-    public RecipeNotFoundException(String message) {
-        super(message);
+
+    private static final String MESSAGE = "Recipe not found\n";
+    public RecipeNotFoundException() {
+        super(MESSAGE);
     }
 }

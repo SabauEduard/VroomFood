@@ -2,7 +2,7 @@ package Models;
 
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements java.io.Serializable{
     private static int idCounter = 0;
     private int id;
     private String name;

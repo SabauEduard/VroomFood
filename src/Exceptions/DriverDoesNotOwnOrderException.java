@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class DriverDoesNotOwnOrderException extends RuntimeException{
-    public DriverDoesNotOwnOrderException(String message) {
-        super(message);
+
+    private static final String MESSAGE = "Driver does not own order\n";
+    public DriverDoesNotOwnOrderException() {
+        super(MESSAGE);
     }
 }

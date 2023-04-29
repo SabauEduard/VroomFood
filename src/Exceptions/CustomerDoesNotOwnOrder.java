@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class CustomerDoesNotOwnOrder extends RuntimeException{
-    public CustomerDoesNotOwnOrder(String message){
-        super(message);
+
+    private static final String MESSAGE = "You are not logged in as the customer of this order \n";
+    public CustomerDoesNotOwnOrder(){
+        super(MESSAGE);
     }
 }

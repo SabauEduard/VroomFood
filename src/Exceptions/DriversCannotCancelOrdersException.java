@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class DriversCannotCancelOrdersException extends RuntimeException{
-    public DriversCannotCancelOrdersException(String message){
-        super(message);
+
+    private static final String MESSAGE = "Drivers cannot cancel orders \n";
+    public DriversCannotCancelOrdersException(){
+        super(MESSAGE);
     }
 }

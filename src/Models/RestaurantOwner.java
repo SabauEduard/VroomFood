@@ -3,7 +3,7 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantOwner extends User {
+public class RestaurantOwner extends User implements java.io.Serializable{
     private List<Restaurant> restaurants = new ArrayList<>();
 
     public RestaurantOwner(String name, String username, String password, String email, String phoneNumber, String address, List<Restaurant> restaurants) {

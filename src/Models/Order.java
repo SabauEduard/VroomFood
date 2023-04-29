@@ -5,7 +5,7 @@ import Utils.OrderStatusType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements java.io.Serializable{
     private static int idCounter = 0;
     private int id;
     private Customer customer;

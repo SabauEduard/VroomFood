@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class RestaurantOwnerDoesNotHaveOrderHistoryException extends RuntimeException{
-    public RestaurantOwnerDoesNotHaveOrderHistoryException(String message) {
-        super(message);
+
+    private static final String MESSAGE = "Restaurant owners do not have order history \n";
+    public RestaurantOwnerDoesNotHaveOrderHistoryException() {
+        super(MESSAGE);
     }
 }

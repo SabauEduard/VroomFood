@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class UsernameIsTakenException extends RuntimeException{
-    public UsernameIsTakenException(String message) {
-        super(message);
+
+    private static final String MESSAGE = "Username is already taken\n";
+    public UsernameIsTakenException() {
+        super(MESSAGE);
     }
 }

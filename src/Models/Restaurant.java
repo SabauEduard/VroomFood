@@ -3,7 +3,7 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant {
+public class Restaurant implements java.io.Serializable{
     private static int idCounter = 0;
     private int id;
     private String name;

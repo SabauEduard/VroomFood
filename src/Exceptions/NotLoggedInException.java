@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class NotLoggedInException extends RuntimeException{
-    public NotLoggedInException(String message) {
-        super(message);
+
+    private static final String MESSAGE = "There is no user currently logged in\n";
+    public NotLoggedInException() {
+        super(MESSAGE);
     }
 }

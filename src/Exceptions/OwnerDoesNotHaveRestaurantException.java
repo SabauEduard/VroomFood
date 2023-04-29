@@ -1,7 +1,9 @@
 package Exceptions;
 
 public class OwnerDoesNotHaveRestaurantException extends RuntimeException{
-    public OwnerDoesNotHaveRestaurantException(String message) {
-        super(message);
+
+    private static final String MESSAGE = "This user does not own this restaurant\n";
+    public OwnerDoesNotHaveRestaurantException() {
+        super(MESSAGE);
     }
 }
