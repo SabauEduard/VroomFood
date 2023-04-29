@@ -42,6 +42,20 @@ public class Order {
         this.recipes.remove(recipe);
     }
 
+    public void deliver(){
+        this.status = OrderStatusType.IN_DELIVERY;
+    }
+
+    public void refuseDelivery() { this.status = OrderStatusType.ACCEPTED; }
+
+    public void markAsDelivered(){
+        this.status = OrderStatusType.DELIVERED;
+    }
+
+    public void cancel(){
+        this.status = OrderStatusType.CANCELLED;
+    }
+
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
     }
@@ -125,5 +139,20 @@ public class Order {
         }
         result.append("\n");
         return result.toString();
+    }
+
+    public int hashCode() {
+        return this.id;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Order)) {
+            return false;
+        }
+        Order order = (Order) obj;
+        return this.id == order.getId();
     }
 }

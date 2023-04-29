@@ -97,15 +97,14 @@ public class AppService {
                 throw new OwnerDoesNotHaveRestaurantException("You are not logged in as the owner of this restaurant \n");
         }
         else if(currentUser instanceof Driver){
-            //To do: check if the driver is assigned to this order
+            throw new DriversCannotCancelOrdersException("Drivers cannot cancel orders \n");
         }
         else if(currentUser instanceof Customer customer){
             if (!customer.equals(order.getCustomer()))
                 throw new CustomerDoesNotOwnOrder("You are not logged in as the customer of this order \n");
         }
-        order.setStatus(OrderStatusType.CANCELLED);
-        if(ordersToDeliver.contains(order))
-            ordersToDeliver.remove(order);
+        order.cancel();
+        ordersToDeliver.remove(order);
     }
     public static void removeRecipe(String recipeName, Order order) throws RecipeNotFoundException{
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
@@ -192,6 +191,50 @@ public class AppService {
         for (Order order : orders)
             System.out.println(order);
     }
+
+    public static Order getOrderToDeliver(){
+        if (currentUser == null)
+            throw new NotLoggedInException("There is no user currently logged in \n");
+        if (!(currentUser instanceof Driver))
+            throw new OnlyDriversCanDeliverOrdersException("Only drivers can deliver orders \n");
+        if (ordersToDeliver.isEmpty())
+            throw new NoOrdersToDeliverException("There are no orders to deliver \n");
+        Order order = ordersToDeliver.stream().findFirst().get();
+        ordersToDeliver.remove(order);
+        return order;
+    }
+
+    public static void deliverOrder(Order order){
+        if(!(currentUser instanceof Driver))
+            throw new OnlyDriversCanDeliverOrdersException("Only drivers can deliver orders \n");
+        if (order == null)
+            throw new OrderNotFoundException("Order not found \n");
+        if (!order.getDriver().equals(currentUser))
+            throw new DriverDoesNotOwnOrderException("You are not logged in as the driver of this order \n");
+        order.deliver();
+    }
+
+    public static void refuseDelivery(Order order){
+        if(!(currentUser instanceof Driver))
+            throw new OnlyDriversCanDeliverOrdersException("Only drivers can deliver orders \n");
+        if (order == null)
+            throw new OrderNotFoundException("Order not found \n");
+        if (!order.getDriver().equals(currentUser))
+            throw new DriverDoesNotOwnOrderException("You are not logged in as the driver of this order \n");
+        order.refuseDelivery();
+        ordersToDeliver.add(order);
+    }
+
+    public static void markAsDelivered(Order order){
+        if(!(currentUser instanceof Driver))
+            throw new OnlyDriversCanDeliverOrdersException("Only drivers can deliver orders \n");
+        if (order == null)
+            throw new OrderNotFoundException("Order not found \n");
+        if (!order.getDriver().equals(currentUser))
+            throw new DriverDoesNotOwnOrderException("You are not logged in as the driver of this order \n");
+        order.markAsDelivered();
+    }
+
     public static UserRepository getUserRepository() {
         return userRepository;
     }
