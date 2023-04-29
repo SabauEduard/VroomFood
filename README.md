@@ -19,8 +19,8 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
    * Cancel a order
    * View their order history 
 3. Drivers
-   * Accept an order **(to be implemented)**
-   * Mark an order as delivered **(to be implemented)**
+   * Accept an order 
+   * Mark an order as delivered 
    * View their order history
 4. Restaurant owners
    * Add a restaurant
