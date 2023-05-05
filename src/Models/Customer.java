@@ -24,4 +24,9 @@ public class Customer extends User implements java.io.Serializable{
         this.orderHistory = orderHistory;
     }
 
+    public String toString(){
+        return "Customer," + super.toString();
+    }
+
 }
+
