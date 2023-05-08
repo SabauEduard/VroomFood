@@ -18,6 +18,8 @@ public class AppService {
     private static OrderRepository orderRepository = new OrderRepository();
     private static User currentUser = null;
     private static Set<Order> ordersToDeliver = new HashSet<>();
+    private AppService() {
+    }
 
     protected static void checkIfLoggedIn() throws NotLoggedInException{
         if (currentUser == null)
@@ -75,6 +77,7 @@ public class AppService {
     }
 
     public static void login(String username, String password) throws UserNotFoundException, WrongPasswordException{
+        AuditService.getInstance().logAction("login");
         User user = userRepository.getUserByUsername(username);
         if (user == null)
             throw new UserNotFoundException();
@@ -83,6 +86,7 @@ public class AppService {
         currentUser = user;
     }
     public static void logout() throws NotLoggedInException{
+        AuditService.getInstance().logAction("logout");
         checkIfLoggedIn();
         currentUser = null;
     }
@@ -96,6 +100,7 @@ public class AppService {
     }
     public static void registerCustomer(String name, String username, String password, String email, String phoneNumber,
                                         String address) throws UsernameIsTakenException{
+        AuditService.getInstance().logAction("registerCustomer");
         checkUsername(username);
         userRepository.add(new Customer(name, username, password, email, phoneNumber, address));
     }
@@ -109,6 +114,7 @@ public class AppService {
     }
     public static void registerDriver(String name, String username, String password, String email, String phoneNumber,
                                       String address, String vehiclePlate, VehicleType vehicleType) throws UsernameIsTakenException{
+        AuditService.getInstance().logAction("registerDriver");
         checkUsername(username);
         userRepository.add(new Driver(name, username, password, email, phoneNumber, address, vehiclePlate, vehicleType));
     }
@@ -122,6 +128,7 @@ public class AppService {
     }
     public static void registerRestaurantOwner(String name, String username, String password, String email,
                                                String phoneNumber, String address) throws UsernameIsTakenException{
+        AuditService.getInstance().logAction("registerRestaurantOwner");
         checkUsername(username);
         userRepository.add(new RestaurantOwner(name, username, password, email, phoneNumber, address));
     }
@@ -132,6 +139,8 @@ public class AppService {
         return r.nextInt(high-low) + low;
     }
     public static Order startOrder(String restaurantName) throws RestaurantNotFoundException{
+        AuditService.getInstance().logAction("startOrder");
+        checkIfLoggedIn();
         if (!(currentUser instanceof Customer))
             throw new OnlyCustomersCanOrderException();
         Customer customer = (Customer) currentUser;
@@ -144,12 +153,13 @@ public class AppService {
         return order;
     }
     public static void addRecipeToOrder(String recipeName, Order order) throws RecipeNotFoundException{
-
+        AuditService.getInstance().logAction("addRecipeToOrder");
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
         checkRecipe(recipeName, order);
         order.addRecipe(recipe);
     }
     public static void cancelOrder(Order order) throws OrderNotFoundException, NotLoggedInException, OwnerDoesNotHaveRestaurantException{
+        AuditService.getInstance().logAction("cancelOrder");
         checkIfOrderExists(order);
         checkIfLoggedIn();
         if (currentUser instanceof RestaurantOwner restaurantOwner){
@@ -166,11 +176,13 @@ public class AppService {
         ordersToDeliver.remove(order);
     }
     public static void removeRecipe(String recipeName, Order order) throws RecipeNotFoundException{
+        AuditService.getInstance().logAction("removeRecipe");
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
         checkRecipe(recipeName, order);
         order.removeRecipe(recipe);
     }
     public static void sendOrder(Order order) throws OrderNotFoundException{
+        AuditService.getInstance().logAction("sendOrder");
         checkIfOrderExists(order);
         order.setDeliveryTime(estimateDeliveryTime());
         order.setStatus(OrderStatusType.IN_DELIVERY);
@@ -184,6 +196,7 @@ public class AppService {
         }
     }
     public static void addRecipe(String recipeName, String description, Integer price, Integer preparationTime, List<String> ingredientList){
+        AuditService.getInstance().logAction("addRecipe");
         Recipe recipe = new Recipe(recipeName, description, price, preparationTime, ingredientList);
         recipeRepository.add(recipe);
     }
@@ -198,6 +211,7 @@ public class AppService {
         }
     }
     public static void addRestaurant(String restaurantName, String address, String phoneNumber) throws OnlyOwnersCandAddRestaurantsException{
+        AuditService.getInstance().logAction("addRestaurant");
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCandAddRestaurantsException();
         Restaurant restaurant = new Restaurant(restaurantName, address, phoneNumber);
@@ -207,6 +221,7 @@ public class AppService {
     }
     public static void removeRestaurant(String restaurantName) throws OnlyOwnersCanRemoveRestaurantsException,
             RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
+        AuditService.getInstance().logAction("removeRestaurant");
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCanRemoveRestaurantsException();
         Restaurant restaurant = restaurantRepository.getRestaurantByName(restaurantName);
@@ -216,13 +231,16 @@ public class AppService {
         restaurantOwner.removeRestaurant(restaurant);
     }
     public static void sortUsersByName(){
+        AuditService.getInstance().logAction("sortUsersByName");
         userRepository.sortUsersByName();
     }
     public static void printUsers(){
+        AuditService.getInstance().logAction("printUsers");
         userRepository.printUsers();
     }
     public static void addRecipeToRestaurant(String recipeName, String restaurantName) throws OnlyOwnersCanAddRecipesToRestaurantsException,
             RecipeNotFoundException, RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
+        AuditService.getInstance().logAction("addRecipeToRestaurant");
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCanAddRecipesToRestaurantsException();
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
@@ -234,6 +252,7 @@ public class AppService {
     }
     public static void removeRecipeFromRestaurant(String recipeName, String restaurantName) throws OnlyOwnersCanRemoveRecipesFromRestaurantsException,
             RecipeNotFoundException, RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
+        AuditService.getInstance().logAction("removeRecipeFromRestaurant");
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCanRemoveRecipesFromRestaurantsException();
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
@@ -244,6 +263,7 @@ public class AppService {
         restaurant.removeRecipe(recipe);
     }
     public static void printOrderHistory(boolean toFile) throws NotLoggedInException, RestaurantOwnerDoesNotHaveOrderHistoryException{
+        AuditService.getInstance().logAction("printOrderHistory");
         checkIfLoggedIn();
         if (currentUser instanceof RestaurantOwner)
             throw new RestaurantOwnerDoesNotHaveOrderHistoryException();
@@ -265,6 +285,7 @@ public class AppService {
         }
     }
     public static Order getOrderToDeliver() throws NoOrdersToDeliverException, NotLoggedInException, OnlyDriversCanDeliverOrdersException{
+        AuditService.getInstance().logAction("getOrderToDeliver");
         checkIfLoggedIn();
         checkIfLoggedInAsDriver();
         if (ordersToDeliver.isEmpty())
@@ -275,15 +296,18 @@ public class AppService {
         return order;
     }
     public static void deliverOrder(Order order) throws OrderNotFoundException, NotLoggedInException, OnlyDriversCanDeliverOrdersException{
+        AuditService.getInstance().logAction("deliverOrder");
         checkForDelivery(order);
         order.deliver();
     }
     public static void refuseDelivery(Order order) throws OrderNotFoundException, NotLoggedInException, OnlyDriversCanDeliverOrdersException{
+        AuditService.getInstance().logAction("refuseDelivery");
         checkForDelivery(order);
         order.setDriver(null);
         ordersToDeliver.add(order);
     }
     public static void markAsDelivered(Order order) throws OrderNotFoundException, NotLoggedInException, OnlyDriversCanDeliverOrdersException{
+        AuditService.getInstance().logAction("markAsDelivered");
         checkForDelivery(order);
         order.markAsDelivered();
     }

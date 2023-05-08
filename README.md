@@ -5,7 +5,9 @@ view the menu and order history of their favorite restaurants. Drivers can accep
 to them and mark them as delivered. Restaurant owners can add their Restaurants and update the menu.
 
 ## New update!
+* Drivers can now refuse to deliver an order!
 * The app now supports reading and writing objects to CSV files!
+* The app now has an audit system that keeps track of all the actions performed by the users!
 
 ## Possible actions for each user type are listed below:
 1. All users
@@ -22,7 +24,9 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
    * Cancel a order
    * View their order history 
 3. Drivers
-   * Accept an order 
+   * Get one of the available orders that need to be delivered
+   * Deliver the order
+   * Refuse to deliver the order
    * Mark an order as delivered 
    * View their order history
 4. Restaurant owners
@@ -90,7 +94,7 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
 
 ## Services Structure
 1. AppService
-   * All the functionalities of the app described above and some protected helper functions as estimateDeliveryTime. The service calls upon
+   * All the functionalities of the app described above and some protected helper functions. The service calls upon
         the repositories to perform the actions.
    
 ## Utils Structure
