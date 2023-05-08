@@ -4,6 +4,9 @@
 view the menu and order history of their favorite restaurants. Drivers can accept orders, view the orders that are assigned 
 to them and mark them as delivered. Restaurant owners can add their Restaurants and update the menu.
 
+## New update!
+* The app now supports reading and writing objects to CSV files!
+
 ## Possible actions for each user type are listed below:
 1. All users
    * Register

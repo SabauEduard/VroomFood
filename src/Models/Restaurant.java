@@ -20,12 +20,11 @@ public class Restaurant implements java.io.Serializable{
         this.recipes = recipes;
         this.restaurantOwner = restaurantOwner;
     }
-    public Restaurant(String name, String address, String phoneNumber, RestaurantOwner restaurantOwner) {
+    public Restaurant(String name, String address, String phoneNumber) {
         this.id = idCounter++;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.restaurantOwner = restaurantOwner;
     }
     public void addRecipe(Recipe recipe){
         this.recipes.add(recipe);

@@ -34,7 +34,7 @@ public class OrderRepository extends GenericRepository<Order>{
     public List<Order> getOrdersByDriver(Driver driver){
         List<Order> orderList = new ArrayList<>();
         for(Order order : objectList){
-            if(order.getDriver().equals(driver)){
+            if(order.getDriver() != null && order.getDriver().equals(driver)){
                 orderList.add(order);
             }
         }

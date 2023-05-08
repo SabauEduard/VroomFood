@@ -1,5 +1,6 @@
 package Services;
 
+import Csv.ReaderWriters.*;
 import Exceptions.*;
 import Models.*;
 import Repositories.OrderRepository;
@@ -8,7 +9,6 @@ import Repositories.RestaurantRepository;
 import Repositories.UserRepository;
 import Utils.OrderStatusType;
 import Utils.VehicleType;
-
 import java.util.*;
 
 public class AppService {
@@ -65,7 +65,7 @@ public class AppService {
         checkIfRestaurantHasRecipe(restaurant, recipe);
     }
     protected static void checkForDelivery(Order order) throws OrderNotFoundException, NotLoggedInException,
-            DriverDoesNotOwnOrderException, OnlyDriversCanDeliverOrdersException{
+            OnlyDriversCanDeliverOrdersException, DriverDoesNotOwnOrderException{
 
         checkIfOrderExists(order);
         checkIfLoggedIn();
@@ -82,28 +82,49 @@ public class AppService {
             throw new WrongPasswordException();
         currentUser = user;
     }
-
     public static void logout() throws NotLoggedInException{
         checkIfLoggedIn();
         currentUser = null;
     }
-
+    public static void registerCustomersFromCSV(){
+        CustomerCSVReaderWriter readerWriter = CustomerCSVReaderWriter.getInstance();
+        List<Customer> customers = readerWriter.read();
+        for (Customer customer : customers){
+            checkUsername(customer.getUsername());
+            userRepository.add(customer);
+        }
+    }
     public static void registerCustomer(String name, String username, String password, String email, String phoneNumber,
                                         String address) throws UsernameIsTakenException{
         checkUsername(username);
         userRepository.add(new Customer(name, username, password, email, phoneNumber, address));
+    }
+    public static void registerDriversFromCSV(){
+        DriverCSVReaderWriter readerWriter = DriverCSVReaderWriter.getInstance();
+        List<Driver> drivers = readerWriter.read();
+        for (Driver driver : drivers){
+            checkUsername(driver.getUsername());
+            userRepository.add(driver);
+        }
     }
     public static void registerDriver(String name, String username, String password, String email, String phoneNumber,
                                       String address, String vehiclePlate, VehicleType vehicleType) throws UsernameIsTakenException{
         checkUsername(username);
         userRepository.add(new Driver(name, username, password, email, phoneNumber, address, vehiclePlate, vehicleType));
     }
+    public static void registerRestaurantOwnersFromCSV(){
+        RestaurantOwnerCSVReaderWriter readerWriter = RestaurantOwnerCSVReaderWriter.getInstance();
+        List<RestaurantOwner> restaurantOwners = readerWriter.read();
+        for (RestaurantOwner restaurantOwner : restaurantOwners){
+            checkUsername(restaurantOwner.getUsername());
+            userRepository.add(restaurantOwner);
+        }
+    }
     public static void registerRestaurantOwner(String name, String username, String password, String email,
                                                String phoneNumber, String address) throws UsernameIsTakenException{
         checkUsername(username);
         userRepository.add(new RestaurantOwner(name, username, password, email, phoneNumber, address));
     }
-
     protected static int estimateDeliveryTime(){
         Random r = new Random();
         int low = 10;
@@ -111,14 +132,17 @@ public class AppService {
         return r.nextInt(high-low) + low;
     }
     public static Order startOrder(String restaurantName) throws RestaurantNotFoundException{
+        if (!(currentUser instanceof Customer))
+            throw new OnlyCustomersCanOrderException();
         Customer customer = (Customer) currentUser;
         Restaurant restaurant = restaurantRepository.getRestaurantByName(restaurantName);
         checkIfRestaurantExists(restaurant);
-        Order order = new Order(customer, null, restaurant, 0, customer.getAddress());
+        Order order = new Order(customer.getAddress());
+        order.setCustomer(customer);
+        order.setRestaurant(restaurant);
         orderRepository.add(order);
         return order;
     }
-
     public static void addRecipeToOrder(String recipeName, Order order) throws RecipeNotFoundException{
 
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
@@ -152,14 +176,32 @@ public class AppService {
         order.setStatus(OrderStatusType.IN_DELIVERY);
         ordersToDeliver.add(order);
     }
+    public static void readRecipesFromCSV(){
+        RecipeCSVReaderWriter readerWriter = RecipeCSVReaderWriter.getInstance();
+        List<Recipe> recipes = readerWriter.read();
+        for (Recipe recipe : recipes){
+            recipeRepository.add(recipe);
+        }
+    }
     public static void addRecipe(String recipeName, String description, Integer price, Integer preparationTime, List<String> ingredientList){
         Recipe recipe = new Recipe(recipeName, description, price, preparationTime, ingredientList);
         recipeRepository.add(recipe);
     }
+    public static void readRestaurantsFromCSV(){
+        if(!(currentUser instanceof RestaurantOwner restaurantOwner))
+            throw new OnlyOwnersCandAddRestaurantsException();
+        RestaurantCSVReaderWriter readerWriter = RestaurantCSVReaderWriter.getInstance();
+        List<Restaurant> restaurants = readerWriter.read();
+        for (Restaurant restaurant : restaurants){
+            restaurantRepository.add(restaurant);
+            restaurantOwner.addRestaurant(restaurant);
+        }
+    }
     public static void addRestaurant(String restaurantName, String address, String phoneNumber) throws OnlyOwnersCandAddRestaurantsException{
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCandAddRestaurantsException();
-        Restaurant restaurant = new Restaurant(restaurantName, address, phoneNumber, restaurantOwner);
+        Restaurant restaurant = new Restaurant(restaurantName, address, phoneNumber);
+        restaurant.setRestaurantOwner(restaurantOwner);
         restaurantRepository.add(restaurant);
         restaurantOwner.addRestaurant(restaurant);
     }
@@ -176,7 +218,6 @@ public class AppService {
     public static void sortUsersByName(){
         userRepository.sortUsersByName();
     }
-
     public static void printUsers(){
         userRepository.printUsers();
     }
@@ -191,7 +232,6 @@ public class AppService {
         checkIfUserOwnsRestaurant(restaurantOwner, restaurant);
         restaurant.addRecipe(recipe);
     }
-
     public static void removeRecipeFromRestaurant(String recipeName, String restaurantName) throws OnlyOwnersCanRemoveRecipesFromRestaurantsException,
             RecipeNotFoundException, RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
@@ -203,8 +243,7 @@ public class AppService {
         checkIfUserOwnsRestaurant(restaurantOwner, restaurant);
         restaurant.removeRecipe(recipe);
     }
-
-    public static void printOrderHistory() throws NotLoggedInException, RestaurantOwnerDoesNotHaveOrderHistoryException{
+    public static void printOrderHistory(boolean toFile) throws NotLoggedInException, RestaurantOwnerDoesNotHaveOrderHistoryException{
         checkIfLoggedIn();
         if (currentUser instanceof RestaurantOwner)
             throw new RestaurantOwnerDoesNotHaveOrderHistoryException();
@@ -213,10 +252,18 @@ public class AppService {
             orders = orderRepository.getOrdersByDriver((Driver) currentUser);
         else if (currentUser instanceof Customer)
             orders = orderRepository.getOrdersByCustomer((Customer) currentUser);
-        for (Order order : orders)
-            System.out.println(order);
+        if (toFile){
+            OrderCSVReaderWriter readerWriter = OrderCSVReaderWriter.getInstance();
+            for (Order order : orders){
+                readerWriter.write(order);
+            }
+        }
+        else{
+            for (Order order : orders){
+                System.out.println(order);
+            }
+        }
     }
-
     public static Order getOrderToDeliver() throws NoOrdersToDeliverException, NotLoggedInException, OnlyDriversCanDeliverOrdersException{
         checkIfLoggedIn();
         checkIfLoggedInAsDriver();
@@ -224,56 +271,46 @@ public class AppService {
             throw new NoOrdersToDeliverException();
         Order order = ordersToDeliver.stream().findFirst().get();
         ordersToDeliver.remove(order);
+        order.setDriver((Driver) currentUser);
         return order;
     }
-
     public static void deliverOrder(Order order) throws OrderNotFoundException, NotLoggedInException, OnlyDriversCanDeliverOrdersException{
         checkForDelivery(order);
         order.deliver();
     }
-
     public static void refuseDelivery(Order order) throws OrderNotFoundException, NotLoggedInException, OnlyDriversCanDeliverOrdersException{
         checkForDelivery(order);
+        order.setDriver(null);
         ordersToDeliver.add(order);
     }
-
     public static void markAsDelivered(Order order) throws OrderNotFoundException, NotLoggedInException, OnlyDriversCanDeliverOrdersException{
         checkForDelivery(order);
         order.markAsDelivered();
     }
-
     public static UserRepository getUserRepository() {
         return userRepository;
     }
-
     public static void setUserRepository(UserRepository userRepository) {
         AppService.userRepository = userRepository;
     }
-
     public static RestaurantRepository getRestaurantRepository() {
         return restaurantRepository;
     }
-
     public static void setRestaurantRepository(RestaurantRepository restaurantRepository) {
         AppService.restaurantRepository = restaurantRepository;
     }
-
     public static RecipeRepository getRecipeRepository() {
         return recipeRepository;
     }
-
     public static void setRecipeRepository(RecipeRepository recipeRepository) {
         AppService.recipeRepository = recipeRepository;
     }
-
     public static OrderRepository getOrderRepository() {
         return orderRepository;
     }
-
     public static void setOrderRepository(OrderRepository orderRepository) {
         AppService.orderRepository = orderRepository;
     }
-
     public static User getCurrentUser() {
         return currentUser;
     }

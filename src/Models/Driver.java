@@ -58,4 +58,8 @@ public class Driver extends User implements java.io.Serializable{
     public void setOrderHistory(List<Order> orderHistory) {
         this.orderHistory = orderHistory;
     }
+
+    public String toString(){
+        return "Driver\n" + super.toString();
+    }
 }

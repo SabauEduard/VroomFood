@@ -34,4 +34,8 @@ public class RestaurantOwner extends User implements java.io.Serializable{
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
+
+    public String toString(){
+        return "Restaurant Owner\n" + super.toString();
+    }
 }

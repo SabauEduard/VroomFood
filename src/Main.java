@@ -8,11 +8,21 @@ import Exceptions.*;
 public class Main {
     public static void runTests(){
         // Registering some users
-        AppService.registerCustomer("John Doe", "johndoe", "123456", "johndoe1@gmail.com", "123456789", "123 Main St");
-        AppService.registerCustomer("Mike Doe", "mikedoe", "123456", "mikedoe555@gmail.com", "123456789", "123 Side St");
-        AppService.registerRestaurantOwner("Jane Doe", "janedoe", "123456", "janedoe32@yahoo.com", "987654321", "456 Main St");
-        AppService.registerRestaurantOwner("Mike Smith", "mikesmith", "123456", "mikesmith@gmail.com", "987654321", "456 Side St");
-        AppService.registerDriver("John Smith", "johnsmith", "123456", "johnsmith10@unibuc.ro", "123456789", "123 Main St", "B 123 ABC", VehicleType.BIKE);
+        AppService.registerCustomer("John Doe", "johndoe", "123456", "johndoe1@gmail.com",
+                "123456789", "123 Main St");
+        AppService.registerRestaurantOwner("Jane Doe", "janedoe", "123456", "janedoe32@yahoo.com",
+                "987654321", "456 Main St");
+        AppService.registerDriver("John Smith", "johnsmith", "123456", "johnsmith10@unibuc.ro",
+                "123456789", "123 Main St", "B 12 ABC", VehicleType.BIKE);
+
+        // Registering customers from CSV
+        AppService.registerCustomersFromCSV();
+
+        // Registering restaurant owners from CSV
+        AppService.registerRestaurantOwnersFromCSV();
+
+        // Registering drivers from CSV
+        AppService.registerDriversFromCSV();
 
         // Sorting the users by name
         AppService.sortUsersByName();
@@ -22,6 +32,9 @@ public class Main {
 
         // Logging in as a restaurant owner
         AppService.login("janedoe", "123456");
+
+        // Reading the recipes from the CSV
+        AppService.readRecipesFromCSV();
 
         // Creating two recipes
         List<String> ingredientsSimplePizza = new ArrayList<>();
@@ -42,6 +55,13 @@ public class Main {
         AppService.addRecipeToRestaurant("Simple pizza", "Blue Margarita");
         AppService.addRecipeToRestaurant("Ratatouille", "Blue Margarita");
 
+        // Adding the restaurants from the CSV to the current user (restaurant owner)
+        AppService.readRestaurantsFromCSV();
+
+        // Adding the recipes from the CSV to the restaurants
+        AppService.addRecipeToRestaurant("Goulash", "Caru' cu Bere");
+        AppService.addRecipeToRestaurant("Cous Cous", "Podu' cu Lanturi");
+
         //Logging out
         AppService.logout();
 
@@ -59,7 +79,7 @@ public class Main {
         AppService.sendOrder(order);
 
         // Printing the order history of the customer
-        AppService.printOrderHistory();
+        AppService.printOrderHistory(false);
 
         // Logging out
         AppService.logout();
@@ -70,6 +90,37 @@ public class Main {
         // Removing a recipe from a restaurant
         AppService.login("janedoe", "123456");
         AppService.removeRecipeFromRestaurant("Ratatouille", "Blue Margarita");
+        AppService.logout();
+
+        // Logging as a customer from the CSV file
+        AppService.login("mihpop", "123456");
+
+        // Creating an order and adding recipes from a restaurant and cancelling it
+        Order order2 = AppService.startOrder("Caru' cu Bere");
+        AppService.addRecipeToOrder("Goulash", order2);
+        AppService.cancelOrder(order2);
+
+        // Printing the order history of the customer
+        AppService.printOrderHistory(false);
+        AppService.logout();
+
+        // Logging in as a driver
+        AppService.login("anip99", "123456");
+
+        // Getting an order to delive
+        Order orderToDeliver = AppService.getOrderToDeliver();
+
+        // Delivering the order
+        AppService.deliverOrder(orderToDeliver);
+
+        // Mark the order as delivered
+        AppService.markAsDelivered(orderToDeliver);
+
+        // Printing the order history of the driver
+        AppService.printOrderHistory(false);
+
+        // Printing the order history of the driver to the CSV file output.csv
+        AppService.printOrderHistory(true);
         AppService.logout();
 
         // Testing the exception handling

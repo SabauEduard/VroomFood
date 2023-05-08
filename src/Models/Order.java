@@ -17,12 +17,9 @@ public class Order implements java.io.Serializable{
     private int deliveryTime;
     private OrderStatusType status;
 
-    public Order(Customer customer, Driver driver, Restaurant restaurant, int totalPrice, String deliveryAddress) {
+    public Order(String deliveryAddress) {
         this.id = idCounter++;
-        this.customer = customer;
-        this.driver = driver;
-        this.restaurant = restaurant;
-        this.totalPrice = totalPrice;
+        this.totalPrice = 0;
         this.deliveryAddress = deliveryAddress;
         this.deliveryTime = 0;
         this.status = OrderStatusType.ACCEPTED;
@@ -127,7 +124,7 @@ public class Order implements java.io.Serializable{
     public String toString() {
         StringBuilder result = new StringBuilder("Order " + this.id + "\n"
                 + "Customer: " + this.customer.getUsername() + "\n"
-                //+ "Driver: " + this.driver.getUsername() + "\n"  -- Driver business logic is not implemented yet
+                + "Driver: " + ((this.driver == null) ? "Driver not yet assigned\n":this.driver.getUsername() + "\n")
                 + "Restaurant: " + this.restaurant.getName() + "\n"
                 + "Delivery address: " + this.deliveryAddress + "\n"
                 + "Delivery time: " + this.deliveryTime + "\n"

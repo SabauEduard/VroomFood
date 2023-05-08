@@ -25,7 +25,7 @@ public class Customer extends User implements java.io.Serializable{
     }
 
     public String toString(){
-        return "Customer," + super.toString();
+        return "Customer\n" + super.toString();
     }
 
 }
