@@ -23,7 +23,7 @@ public class DriverCSVReaderWriter implements ICSVReaderWriter<Driver>{
         return driver.getId() + SEPARATOR + driver.getName() + SEPARATOR + driver.getUsername() + SEPARATOR +
                 driver.getPassword() + SEPARATOR + driver.getEmail() + SEPARATOR + driver.getPhoneNumber() +
                 SEPARATOR + driver.getAddress() + SEPARATOR + driver.getVehiclePlate() + SEPARATOR +
-                driver.getVehicleType() + SEPARATOR + driver.getRating();
+                driver.getVehicleType();
     }
     @Override
     public Driver processCSVLine(String line) {

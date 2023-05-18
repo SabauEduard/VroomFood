@@ -50,7 +50,6 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
    * Order history
 3. Driver (extends User)
     * Order history
-    * Rating
     * Vehicle Type
     * Vehicle License Plate
 4. Restaurant Owner (extends User)

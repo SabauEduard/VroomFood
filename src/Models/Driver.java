@@ -8,16 +8,14 @@ import java.util.List;
 public class Driver extends User implements java.io.Serializable{
     private String vehiclePlate;
     private VehicleType vehicleType;
-    int rating;
     private List<Order> orderHistory = new ArrayList<>();
 
 
     public Driver(String name, String username, String password, String email, String phoneNumber, String address,
-                  String vehiclePlate, VehicleType vehicleType, int rating, List<Order> orderHistory) {
+                  String vehiclePlate, VehicleType vehicleType, List<Order> orderHistory) {
         super(name, username, password, email, phoneNumber, address);
         this.vehiclePlate = vehiclePlate;
         this.vehicleType = vehicleType;
-        this.rating = rating;
         this.orderHistory = orderHistory;
     }
     public Driver(String name, String username, String password, String email, String phoneNumber, String address,
@@ -41,14 +39,6 @@ public class Driver extends User implements java.io.Serializable{
 
     public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public List<Order> getOrderHistory() {
