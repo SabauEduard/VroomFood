@@ -1,7 +1,7 @@
-import Models.Order;
-import Utils.VehicleType;
-import Services.AppService;
-import Exceptions.*;
+import models.Order;
+import utils.VehicleType;
+import services.AppService;
+import exceptions.*;
 
 public class Main {
     public static void runTests(){

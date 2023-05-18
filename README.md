@@ -90,12 +90,12 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
 5. OrderRepository (extends GenericRepository)
     * Functionalities for the Order entity
 
-## Services Structure
+## services Structure
 1. AppService
    * All the functionalities of the app described above and some protected helper functions. The service calls upon
         the repositories to perform the actions.
    
-## Utils Structure
+## utils Structure
 1. OrderStatusType (enum)
    * PENDING
    * ACCEPTED
@@ -106,7 +106,7 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
     * MOTORCYCLE
     * BICYCLE
 
-## Exceptions
+## exceptions
 Multiple specific exceptions to deal with the different cases that can occur in the app.
    
 
