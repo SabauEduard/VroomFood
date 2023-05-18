@@ -24,12 +24,11 @@ public class RecipeCSVReaderWriter implements ICSVReaderWriter<Recipe>{
     @Override
     public String convertObjectToCSVLine(Recipe recipe) {
         return recipe.getId() + SEPARATOR + recipe.getName() + SEPARATOR + recipe.getDescription() + SEPARATOR +
-                recipe.getPrice() + SEPARATOR + recipe.getPreparationTime() + SEPARATOR + recipe.getIngredientList();
+                recipe.getPrice() + SEPARATOR + recipe.getPreparationTime();
     }
     @Override
     public Recipe processCSVLine(String line) {
         String[] fields = line.split(SEPARATOR);
-        List<String> recipes = new ArrayList<>(Arrays.asList(fields[4].split(";")));
-        return new Recipe(fields[0], fields[1], Integer.parseInt(fields[2]), Integer.parseInt(fields[3]), recipes);
+        return new Recipe(fields[0], fields[1], Integer.parseInt(fields[2]), Integer.parseInt(fields[3]));
     }
 }

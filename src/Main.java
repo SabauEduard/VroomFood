@@ -1,8 +1,6 @@
 import Models.Order;
 import Utils.VehicleType;
 import Services.AppService;
-import java.util.ArrayList;
-import java.util.List;
 import Exceptions.*;
 
 public class Main {
@@ -37,18 +35,8 @@ public class Main {
         AppService.readRecipesFromCSV();
 
         // Creating two recipes
-        List<String> ingredientsSimplePizza = new ArrayList<>();
-        ingredientsSimplePizza.add("cheese");
-        ingredientsSimplePizza.add("tomato");
-        ingredientsSimplePizza.add("pepperoni");
-        AppService.addRecipe("Simple pizza", "Basic pizza" ,20, 30, ingredientsSimplePizza);
-
-        List<String> ingredientsRatatouille = new ArrayList<>();
-        ingredientsRatatouille.add("eggplant");
-        ingredientsRatatouille.add("tomato");
-        ingredientsRatatouille.add("onion");
-        ingredientsRatatouille.add("pepper");
-        AppService.addRecipe("Ratatouille", "French dish" ,30, 40, ingredientsRatatouille);
+        AppService.addRecipe("Simple pizza", "Basic pizza" ,20, 30);
+        AppService.addRecipe("Ratatouille", "French dish" ,30, 40);
 
         // Creating a restaurant and adding the recipes to it
         AppService.addRestaurant("Blue Margarita", "123 Main St", "123456789");

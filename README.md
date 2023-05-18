@@ -68,7 +68,6 @@ to them and mark them as delivered. Restaurant owners can add their Restaurants 
     * Price
     * Description
     * Preparation time
-    * List of ingredients
 7. Order
    * Id
    * Customer

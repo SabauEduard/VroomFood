@@ -195,9 +195,9 @@ public class AppService {
             recipeRepository.add(recipe);
         }
     }
-    public static void addRecipe(String recipeName, String description, Integer price, Integer preparationTime, List<String> ingredientList){
+    public static void addRecipe(String recipeName, String description, Integer price, Integer preparationTime){
         AuditService.getInstance().logAction("addRecipe");
-        Recipe recipe = new Recipe(recipeName, description, price, preparationTime, ingredientList);
+        Recipe recipe = new Recipe(recipeName, description, price, preparationTime);
         recipeRepository.add(recipe);
     }
     public static void readRestaurantsFromCSV(){

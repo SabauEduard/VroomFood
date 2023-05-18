@@ -9,15 +9,13 @@ public class Recipe implements java.io.Serializable{
     private String description;
     private Integer price;
     private Integer preparationTime;
-    private List<String> ingredientList;
 
-    public Recipe(String name, String description, Integer price, Integer preparationTime, List<String> ingredientList) {
+    public Recipe(String name, String description, Integer price, Integer preparationTime) {
         this.id = idCounter++;
         this.name = name;
         this.description = description;
         this.price = price;
         this.preparationTime = preparationTime;
-        this.ingredientList = ingredientList;
     }
 
     public String getName() {
@@ -50,14 +48,6 @@ public class Recipe implements java.io.Serializable{
 
     public void setPreparationTime(Integer preparationTime) {
         this.preparationTime = preparationTime;
-    }
-
-    public List<String> getIngredientList() {
-        return ingredientList;
-    }
-
-    public void setIngredientList(List<String> ingredientList) {
-        this.ingredientList = ingredientList;
     }
 
     public int getId() {
