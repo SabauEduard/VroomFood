@@ -1,5 +1,7 @@
 package models;
 
+import java.sql.ResultSet;
+
 public class Recipe implements java.io.Serializable{
     private static int idCounter = 0;
     private int id;
@@ -14,6 +16,19 @@ public class Recipe implements java.io.Serializable{
         this.description = description;
         this.price = price;
         this.preparationTime = preparationTime;
+    }
+    public Recipe(ResultSet result) {
+        try{
+            this.id = result.getInt("id");
+            this.name = result.getString("name");
+            this.description = result.getString("description");
+            this.price = result.getInt("price");
+            this.preparationTime = result.getInt("preparationTime");
+            var restaurantId = result.getInt("restaurantId");
+
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 
     public String getName() {

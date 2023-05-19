@@ -1,5 +1,7 @@
 package models;
 
+import java.sql.ResultSet;
+
 public abstract class User {
     private static int idCounter = 0;
     protected int id;
@@ -18,6 +20,19 @@ public abstract class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+    }
+    public User(ResultSet result){
+        try{
+            this.id = result.getInt("id");
+            this.name = result.getString("name");
+            this.username = result.getString("username");
+            this.password = result.getString("password");
+            this.email = result.getString("email");
+            this.phoneNumber = result.getString("phoneNumber");
+            this.address = result.getString("address");
+        }catch(Exception e){
+            System.out.println(e.toString());
+        }
     }
 
     public String getName() {

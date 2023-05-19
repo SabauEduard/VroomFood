@@ -1,30 +1,47 @@
 package repositories;
 
+import config.DatabaseConfiguration;
 import models.Recipe;
+import models.Restaurant;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeRepository extends GenericRepository<Recipe> {
+    private static final RecipeRepository instance = new RecipeRepository();
 
-    public RecipeRepository(List<Recipe> objectList) {
-        super(objectList);
-    }
-    public RecipeRepository() {
+    private RecipeRepository() {
         super();
+        try{
+            Statement statement = databaseConfiguration.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM recipe");
+            while(result.next()) {
+                Recipe current = new Recipe(result);
+                objectList.add(current);
+            }
+            statement.close();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+
+    }
+    public static RecipeRepository getInstance(){
+        return instance;
     }
 
-    @Override
-    public void add(Recipe recipe){
+    public void add(Recipe recipe, Restaurant restaurant){
         try{
-            String query = "INSERT INTO recipe (id, name, description, price, preparationTime) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO recipe (id, name, description, price, preparationTime, restaurantId) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, recipe.getId());
             preparedStmt.setString(2,recipe.getName());
             preparedStmt.setString(3, recipe.getDescription());
             preparedStmt.setInt(4, recipe.getPrice());
             preparedStmt.setInt(5, recipe.getPreparationTime());
+            preparedStmt.setInt(6, restaurant.getId());
             preparedStmt.execute();
             preparedStmt.close();
         }catch (Exception e){

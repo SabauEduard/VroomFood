@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,9 @@ public class RestaurantOwner extends User implements java.io.Serializable{
 
     public RestaurantOwner(String name, String username, String password, String email, String phoneNumber, String address) {
         super(name, username, password, email, phoneNumber, address);
+    }
+    public RestaurantOwner(ResultSet result){
+        super(result);
     }
 
     public void addRestaurant(Restaurant restaurant) {

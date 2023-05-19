@@ -2,6 +2,7 @@ package models;
 
 import utils.VehicleType;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,15 @@ public class Driver extends User implements java.io.Serializable{
         super(name, username, password, email, phoneNumber, address);
         this.vehiclePlate = vehiclePlate;
         this.vehicleType = vehicleType;
+    }
+    public Driver(ResultSet result){
+        super(result);
+        try {
+            this.vehiclePlate = result.getString("vehiclePlate");
+            this.vehicleType = VehicleType.valueOf(result.getString("vehicleType"));
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 
     public String getVehiclePlate() {

@@ -1,9 +1,27 @@
+import config.DatabaseConfiguration;
 import models.Order;
 import utils.VehicleType;
 import services.AppService;
 import exceptions.*;
 
+import java.sql.Statement;
+
 public class Main {
+    public static void nukeDB(){
+        DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
+        try{
+            Statement statement = databaseConfiguration.getConnection().createStatement();
+            statement.execute("DELETE FROM customer WHERE id >= 0");
+            statement.execute("DELETE FROM driver WHERE id >= 0");
+            statement.execute("DELETE FROM recipe WHERE id >= 0");
+            statement.execute("DELETE FROM restaurant WHERE id >= 0");
+            statement.execute("DELETE FROM restaurant_owner WHERE id >= 0");
+            statement.execute("DELETE FROM order WHERE id >= 0");
+            statement.close();
+        } catch (Exception e){
+            System.out.println(e.toString());
+        }
+    }
     public static void runTests(){
         // Registering some users
         AppService.registerCustomer("John Doe", "johndoe", "123456", "johndoe1@gmail.com",
@@ -31,24 +49,17 @@ public class Main {
         // Logging in as a restaurant owner
         AppService.login("janedoe", "123456");
 
-        // Reading the recipes from the CSV
-        AppService.readRecipesFromCSV();
-
-        // Creating two recipes
-        AppService.addRecipe("Simple pizza", "Basic pizza" ,20, 30);
-        AppService.addRecipe("Ratatouille", "French dish" ,30, 40);
-
         // Creating a restaurant and adding the recipes to it
         AppService.addRestaurant("Blue Margarita", "123 Main St", "123456789");
-        AppService.addRecipeToRestaurant("Simple pizza", "Blue Margarita");
-        AppService.addRecipeToRestaurant("Ratatouille", "Blue Margarita");
+        AppService.addRecipeToRestaurant("Simple pizza", "Basic pizza" ,20, 30, "Blue Margarita");
+        AppService.addRecipeToRestaurant("Ratatouille", "French dish" ,30, 40, "Blue Margarita");
 
         // Adding the restaurants from the CSV to the current user (restaurant owner)
         AppService.readRestaurantsFromCSV();
 
-        // Adding the recipes from the CSV to the restaurants
-        AppService.addRecipeToRestaurant("Goulash", "Caru' cu Bere");
-        AppService.addRecipeToRestaurant("Cous Cous", "Podu' cu Lanturi");
+        // Adding some recipes to the restaurants from the CSV
+        AppService.addRecipeToRestaurant("Cous cous", "French dish" ,10, 10, "Podu' cu Lanturi");
+        AppService.addRecipeToRestaurant("Goulash", "Hungarian dish" ,35, 50, "Caru' cu Bere");
 
         //Logging out
         AppService.logout();
@@ -144,22 +155,15 @@ public class Main {
 
         // Trying to add a recipe as a Customer
         try {
-            AppService.addRecipeToRestaurant("Simple pizza", "Blue Margarita");
+            AppService.addRecipeToRestaurant("Peperoni pizza","Pizza with peperoni", 30, 30, "Blue Margarita");
         } catch (OnlyOwnersCanAddRecipesToRestaurantsException e) {
-            System.out.println(e.getMessage());
-        }
-
-        // Trying to add a non-existent recipe to a restaurant
-        try {
-            AppService.login("janedoe", "123456"); // Logging in as a restaurant owner
-            AppService.addRecipeToRestaurant("Cous cous", "Blue Margarita");
-        } catch (RecipeNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
         // Trying to add a recipe to a non-existent restaurant
         try {
-            AppService.addRecipeToRestaurant("Simple pizza", "Blue Margaritaaaaa");
+            AppService.login("janedoe", "123456");
+            AppService.addRecipeToRestaurant("Peperoni pizza","Pizza with peperoni", 30, 30,"Blue Margaritaaaaa");
         } catch (RestaurantNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -167,7 +171,7 @@ public class Main {
         // Trying to add a recipe to a restaurant that doesn't belong to the logged in restaurant owner
         try{
             AppService.login("mikesmith", "123456"); // Logging in as a restaurant owner
-            AppService.addRecipeToRestaurant("Simple pizza", "Blue Margarita"); // User does not own Blue Margarita
+            AppService.addRecipeToRestaurant("Peperoni pizza","Pizza with peperoni", 30, 30, "Blue Margarita"); // User does not own Blue Margarita
         } catch (OwnerDoesNotHaveRestaurantException e) {
             System.out.println(e.getMessage());
         }
@@ -175,5 +179,7 @@ public class Main {
     }
     public static void main(String[] args) {
         runTests();
+        // Deleting everything from the database
+        //nukeDB();
     }
 }

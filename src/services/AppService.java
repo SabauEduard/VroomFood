@@ -12,9 +12,9 @@ import utils.VehicleType;
 import java.util.*;
 
 public class AppService {
-    private static UserRepository userRepository = new UserRepository();
-    private static RestaurantRepository restaurantRepository = new RestaurantRepository();
-    private static RecipeRepository recipeRepository = new RecipeRepository();
+    private static UserRepository userRepository = UserRepository.getInstance();
+    private static RestaurantRepository restaurantRepository = RestaurantRepository.getInstance();
+    private static RecipeRepository recipeRepository = RecipeRepository.getInstance();
     private static OrderRepository orderRepository = new OrderRepository();
     private static User currentUser = null;
     private static Set<Order> ordersToDeliver = new HashSet<>();
@@ -90,7 +90,7 @@ public class AppService {
         checkIfLoggedIn();
         currentUser = null;
     }
-    public static void registerCustomersFromCSV(){
+    public static void registerCustomersFromCSV() throws UsernameIsTakenException{
         CustomerCSVReaderWriter readerWriter = CustomerCSVReaderWriter.getInstance();
         List<Customer> customers = readerWriter.read();
         for (Customer customer : customers){
@@ -104,7 +104,7 @@ public class AppService {
         checkUsername(username);
         userRepository.add(new Customer(name, username, password, email, phoneNumber, address));
     }
-    public static void registerDriversFromCSV(){
+    public static void registerDriversFromCSV() throws UsernameIsTakenException{
         DriverCSVReaderWriter readerWriter = DriverCSVReaderWriter.getInstance();
         List<Driver> drivers = readerWriter.read();
         for (Driver driver : drivers){
@@ -118,7 +118,7 @@ public class AppService {
         checkUsername(username);
         userRepository.add(new Driver(name, username, password, email, phoneNumber, address, vehiclePlate, vehicleType));
     }
-    public static void registerRestaurantOwnersFromCSV(){
+    public static void registerRestaurantOwnersFromCSV() throws UsernameIsTakenException{
         RestaurantOwnerCSVReaderWriter readerWriter = RestaurantOwnerCSVReaderWriter.getInstance();
         List<RestaurantOwner> restaurantOwners = readerWriter.read();
         for (RestaurantOwner restaurantOwner : restaurantOwners){
@@ -175,8 +175,8 @@ public class AppService {
         order.cancel();
         ordersToDeliver.remove(order);
     }
-    public static void removeRecipe(String recipeName, Order order) throws RecipeNotFoundException{
-        AuditService.getInstance().logAction("removeRecipe");
+    public static void removeRecipeFromOrder(String recipeName, Order order) throws RecipeNotFoundException{
+        AuditService.getInstance().logAction("removeRecipeFromOrder");
         Recipe recipe = recipeRepository.getRecipeByName(recipeName);
         checkRecipe(recipeName, order);
         order.removeRecipe(recipe);
@@ -188,25 +188,13 @@ public class AppService {
         order.setStatus(OrderStatusType.IN_DELIVERY);
         ordersToDeliver.add(order);
     }
-    public static void readRecipesFromCSV(){
-        RecipeCSVReaderWriter readerWriter = RecipeCSVReaderWriter.getInstance();
-        List<Recipe> recipes = readerWriter.read();
-        for (Recipe recipe : recipes){
-            recipeRepository.add(recipe);
-        }
-    }
-    public static void addRecipe(String recipeName, String description, Integer price, Integer preparationTime){
-        AuditService.getInstance().logAction("addRecipe");
-        Recipe recipe = new Recipe(recipeName, description, price, preparationTime);
-        recipeRepository.add(recipe);
-    }
     public static void readRestaurantsFromCSV(){
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCandAddRestaurantsException();
         RestaurantCSVReaderWriter readerWriter = RestaurantCSVReaderWriter.getInstance();
         List<Restaurant> restaurants = readerWriter.read();
         for (Restaurant restaurant : restaurants){
-            restaurantRepository.add(restaurant);
+            restaurantRepository.add(restaurant, restaurantOwner);
             restaurantOwner.addRestaurant(restaurant);
         }
     }
@@ -216,7 +204,7 @@ public class AppService {
             throw new OnlyOwnersCandAddRestaurantsException();
         Restaurant restaurant = new Restaurant(restaurantName, address, phoneNumber);
         restaurant.setRestaurantOwner(restaurantOwner);
-        restaurantRepository.add(restaurant);
+        restaurantRepository.add(restaurant, restaurantOwner);
         restaurantOwner.addRestaurant(restaurant);
     }
     public static void removeRestaurant(String restaurantName) throws OnlyOwnersCanRemoveRestaurantsException,
@@ -238,17 +226,18 @@ public class AppService {
         AuditService.getInstance().logAction("printUsers");
         userRepository.printUsers();
     }
-    public static void addRecipeToRestaurant(String recipeName, String restaurantName) throws OnlyOwnersCanAddRecipesToRestaurantsException,
-            RecipeNotFoundException, RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
+    public static void addRecipeToRestaurant(String recipeName, String description, Integer price, Integer preparationTime,
+                                             String restaurantName) throws OnlyOwnersCanAddRecipesToRestaurantsException,
+                                             RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{
         AuditService.getInstance().logAction("addRecipeToRestaurant");
         if(!(currentUser instanceof RestaurantOwner restaurantOwner))
             throw new OnlyOwnersCanAddRecipesToRestaurantsException();
-        Recipe recipe = recipeRepository.getRecipeByName(recipeName);
-        checkIfRecipeExists(recipe);
+        Recipe recipe = new Recipe(recipeName, description, price, preparationTime);
         Restaurant restaurant = restaurantRepository.getRestaurantByName(restaurantName);
         checkIfRestaurantExists(restaurant);
         checkIfUserOwnsRestaurant(restaurantOwner, restaurant);
         restaurant.addRecipe(recipe);
+        recipeRepository.add(recipe, restaurant);
     }
     public static void removeRecipeFromRestaurant(String recipeName, String restaurantName) throws OnlyOwnersCanRemoveRecipesFromRestaurantsException,
             RecipeNotFoundException, RestaurantNotFoundException, OwnerDoesNotHaveRestaurantException{

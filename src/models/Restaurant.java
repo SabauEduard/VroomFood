@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,18 @@ public class Restaurant implements java.io.Serializable{
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+    public Restaurant(ResultSet result){
+        try{
+            this.id = result.getInt("id");
+            this.name = result.getString("name");
+            this.address = result.getString("address");
+            this.phoneNumber = result.getString("phoneNumber");
+            var restaurantOwnerId = result.getInt("restaurantOwnerId");
+
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void addRecipe(Recipe recipe){
         this.recipes.add(recipe);

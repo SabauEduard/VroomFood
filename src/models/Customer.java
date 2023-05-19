@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class Customer extends User implements java.io.Serializable{
     }
     public Customer(String name, String username, String password, String email, String phoneNumber, String address){
         super(name, username, password, email, phoneNumber, address);
+    }
+    public Customer(ResultSet result){
+        super(result);
     }
     public void buyRecipe(Recipe recipe, Order order){
         order.addRecipe(recipe);
