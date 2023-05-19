@@ -1,10 +1,13 @@
 package repositories;
 
+import config.DatabaseConfiguration;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GenericRepository<T> implements IGenericRepository<T>{
     protected List<T> objectList = new ArrayList<T>();
+    protected final DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
 
     public List<T> getAll() {
         return objectList;

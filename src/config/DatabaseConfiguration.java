@@ -10,11 +10,12 @@ public class DatabaseConfiguration {
 
     public DatabaseConfiguration(){
         try {
-            String url = "jdbc:mysql://127.0.0.2:3306/VroomFood";
+            String url = "jdbc:mysql://127.0.0.1:3306/models";
             String username = "root";
             String pass = "root";
             databaseConnection = DriverManager.getConnection(url, username, pass);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
