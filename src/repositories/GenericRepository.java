@@ -13,18 +13,12 @@ public class GenericRepository<T> implements IGenericRepository<T>{
         return objectList;
     }
     public void add(T object) {
-        if(objectList == null)
-            objectList = new ArrayList<>();
         objectList.add(object);
     }
     public void remove(T object) {
-        if(objectList == null)
-            return;
         objectList.remove(object);
     }
     public void update(T oldObject, T newObject) {
-        if(objectList == null)
-            return;
         int index = objectList.indexOf(oldObject);
         objectList.set(index, newObject);
     }

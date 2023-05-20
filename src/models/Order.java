@@ -1,7 +1,10 @@
 package models;
 
+import repositories.RestaurantRepository;
+import repositories.UserRepository;
 import utils.OrderStatusType;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,20 @@ public class Order implements java.io.Serializable{
         this.deliveryAddress = deliveryAddress;
         this.deliveryTime = 0;
         this.status = OrderStatusType.ACCEPTED;
+    }
+    public Order(ResultSet result){
+        try{
+            this.id = result.getInt("id");
+            this.totalPrice = result.getInt("totalPrice");
+            this.deliveryAddress = result.getString("deliveryAddress");
+            this.deliveryTime = result.getInt("deliveryTime");
+            this.status = OrderStatusType.valueOf(result.getString("status"));
+            this.customer = (Customer) UserRepository.getInstance().getUserById(result.getInt("customerId"));
+            this.driver = (Driver) UserRepository.getInstance().getUserById(result.getInt("driverId"));
+            this.restaurant = RestaurantRepository.getInstance().getRestaurantById(result.getInt("restaurantId"));
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 
     public List<Recipe> getRecipes() {

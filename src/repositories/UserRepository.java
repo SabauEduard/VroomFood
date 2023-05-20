@@ -232,6 +232,13 @@ public class UserRepository extends GenericRepository<User>{
             System.out.println(e.toString());
         }
     }
+    public User getUserById(int id){
+        for(User user : objectList){
+            if(user.getId() == id)
+                return user;
+        }
+        return null;
+    }
     public User getUserByUsername(String username){
         for(User user : objectList){
             if(user.getUsername().equals(username))

@@ -215,6 +215,7 @@ public class AppService {
         Restaurant restaurant = restaurantRepository.getRestaurantByName(restaurantName);
         checkIfRestaurantExists(restaurant);
         checkIfUserOwnsRestaurant(restaurantOwner, restaurant);
+
         restaurantRepository.remove(restaurant);
         restaurantOwner.removeRestaurant(restaurant);
     }
@@ -250,6 +251,7 @@ public class AppService {
         checkIfRestaurantExists(restaurant);
         checkIfUserOwnsRestaurant(restaurantOwner, restaurant);
         restaurant.removeRecipe(recipe);
+        recipeRepository.remove(recipe);
     }
     public static void printOrderHistory(boolean toFile) throws NotLoggedInException, RestaurantOwnerDoesNotHaveOrderHistoryException{
         AuditService.getInstance().logAction("printOrderHistory");
@@ -299,6 +301,7 @@ public class AppService {
         AuditService.getInstance().logAction("markAsDelivered");
         checkForDelivery(order);
         order.markAsDelivered();
+        orderRepository.addToDB(order);
     }
     public static UserRepository getUserRepository() {
         return userRepository;

@@ -1,5 +1,7 @@
 package models;
 
+import repositories.RestaurantRepository;
+
 import java.sql.ResultSet;
 
 public class Recipe implements java.io.Serializable{
@@ -25,7 +27,8 @@ public class Recipe implements java.io.Serializable{
             this.price = result.getInt("price");
             this.preparationTime = result.getInt("preparationTime");
             var restaurantId = result.getInt("restaurantId");
-
+            Restaurant restaurant = RestaurantRepository.getInstance().getRestaurantById(restaurantId);
+            restaurant.addRecipe(this);
         }catch (Exception e){
             System.out.println(e.toString());
         }

@@ -1,5 +1,7 @@
 package models;
 
+import repositories.UserRepository;
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class Restaurant implements java.io.Serializable{
             this.address = result.getString("address");
             this.phoneNumber = result.getString("phoneNumber");
             var restaurantOwnerId = result.getInt("restaurantOwnerId");
-
+            this.restaurantOwner =  (RestaurantOwner) UserRepository.getInstance().getUserById(restaurantOwnerId);
         }catch (Exception e){
             System.out.println(e.toString());
         }

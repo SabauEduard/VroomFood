@@ -11,12 +11,13 @@ public class Main {
         DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
         try{
             Statement statement = databaseConfiguration.getConnection().createStatement();
+            statement.execute("DELETE FROM order_recipe WHERE id >= 0");
+            statement.execute("DELETE FROM order_order WHERE id >= 0");
             statement.execute("DELETE FROM customer WHERE id >= 0");
             statement.execute("DELETE FROM driver WHERE id >= 0");
             statement.execute("DELETE FROM recipe WHERE id >= 0");
             statement.execute("DELETE FROM restaurant WHERE id >= 0");
             statement.execute("DELETE FROM restaurant_owner WHERE id >= 0");
-            statement.execute("DELETE FROM order WHERE id >= 0");
             statement.close();
         } catch (Exception e){
             System.out.println(e.toString());
@@ -85,11 +86,6 @@ public class Main {
 
         // Printing the order
         System.out.println(order);
-
-        // Removing a recipe from a restaurant
-        AppService.login("janedoe", "123456");
-        AppService.removeRecipeFromRestaurant("Ratatouille", "Blue Margarita");
-        AppService.logout();
 
         // Logging as a customer from the CSV file
         AppService.login("mihpop", "123456");
