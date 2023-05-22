@@ -3,6 +3,7 @@ package repositories;
 import config.DatabaseConfiguration;
 import models.Recipe;
 import models.Restaurant;
+import utils.Constants;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ public class RecipeRepository extends GenericRepository<Recipe> {
         super();
         try{
             Statement statement = databaseConfiguration.getConnection().createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM recipe");
+            ResultSet result = statement.executeQuery(Constants.SELECT_ALL_RECIPES);
             while(result.next()) {
                 Recipe current = new Recipe(result);
                 objectList.add(current);
@@ -34,7 +35,7 @@ public class RecipeRepository extends GenericRepository<Recipe> {
 
     public void add(Recipe recipe, Restaurant restaurant){
         try{
-            String query = "INSERT INTO recipe (id, name, description, price, preparationTime, restaurantId) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = Constants.INSERT_RECIPE;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, recipe.getId());
             preparedStmt.setString(2,recipe.getName());
@@ -53,7 +54,7 @@ public class RecipeRepository extends GenericRepository<Recipe> {
     @Override
     public void remove(Recipe recipe){
         try{
-            String query = "DELETE FROM recipe WHERE id = ?";
+            String query = Constants.DELETE_RECIPE;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, recipe.getId());
             preparedStmt.execute();
@@ -67,7 +68,7 @@ public class RecipeRepository extends GenericRepository<Recipe> {
     @Override
     public void update(Recipe oldRecipe, Recipe newRecipe){
         try{
-            String query = "UPDATE recipe SET id = ?, name = ?, description = ?, price = ?, preparationTime = ? WHERE id = ?";
+            String query = Constants.UPDATE_RECIPE;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, newRecipe.getId());
             preparedStmt.setString(2,newRecipe.getName());

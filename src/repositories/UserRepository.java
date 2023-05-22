@@ -4,6 +4,7 @@ import models.Customer;
 import models.Driver;
 import models.RestaurantOwner;
 import models.User;
+import utils.Constants;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,21 +18,21 @@ public class UserRepository extends GenericRepository<User>{
         super();
         try {
             Statement statement = databaseConfiguration.getConnection().createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM customer");
+            ResultSet result = statement.executeQuery(Constants.SELECT_ALL_CUSTOMERS);
             while (result.next()) {
                 Customer current = new Customer(result);
                 objectList.add(current);
             }
             statement.close();
             statement = databaseConfiguration.getConnection().createStatement();
-            result = statement.executeQuery("SELECT * FROM driver");
+            result = statement.executeQuery(Constants.SELECT_ALL_DRIVERS);
             while (result.next()) {
                 Driver current = new Driver(result);
                 objectList.add(current);
             }
             statement.close();
             statement = databaseConfiguration.getConnection().createStatement();
-            result = statement.executeQuery("SELECT * FROM restaurant_owner");
+            result = statement.executeQuery(Constants.SELECT_ALL_RESTAURANT_OWNERS);
             while (result.next()) {
                 RestaurantOwner current = new RestaurantOwner(result);
                 objectList.add(current);
@@ -66,7 +67,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void addCustomerToDB(Customer customer){
         try{
-            String query = "INSERT INTO customer (id, name, username, password, email, phoneNumber, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = Constants.INSERT_CUSTOMER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, customer.getId());
             preparedStmt.setString(2,customer.getName());
@@ -83,7 +84,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void addRestaurantOwnerToDB(RestaurantOwner restaurantOwner){
         try{
-            String query = "INSERT INTO restaurant_owner (id, name, username, password, email, phoneNumber, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = Constants.INSERT_RESTAURANT_OWNER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, restaurantOwner.getId());
             preparedStmt.setString(2,restaurantOwner.getName());
@@ -100,8 +101,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void addDriverToDB(Driver driver) {
         try{
-            String query = "INSERT INTO driver (id, name, username, password, email, phoneNumber, address, " +
-                    "vehiclePlate, vehicleType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = Constants.INSERT_DRIVER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, driver.getId());
             preparedStmt.setString(2, driver.getName());
@@ -133,7 +133,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void removeCustomerFromDB(Customer customer){
         try{
-            String query = "DELETE FROM customer WHERE id = ?";
+            String query = Constants.DELETE_CUSTOMER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, customer.getId());
             preparedStmt.execute();
@@ -144,7 +144,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void removeRestaurantOwnerFromDB(RestaurantOwner restaurantOwner){
         try{
-            String query = "DELETE FROM restaurant_owner WHERE id = ?";
+            String query = Constants.DELETE_RESTAURANT_OWNER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, restaurantOwner.getId());
             preparedStmt.execute();
@@ -155,7 +155,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void removeDriverFromDB(Driver driver){
         try{
-            String query = "DELETE FROM driver WHERE id = ?";
+            String query = Constants.DELETE_DRIVER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, driver.getId());
             preparedStmt.execute();
@@ -178,7 +178,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void updateCustomerInDB(Customer newCustomer, Customer oldCustomer){
         try{
-            String query = "UPDATE customer SET id = ?, name = ?, username = ?, password = ?, email = ?, phoneNumber = ?, address = ? WHERE id = ?";
+            String query = Constants.UPDATE_CUSTOMER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, newCustomer.getId());
             preparedStmt.setString(2, newCustomer.getName());
@@ -196,7 +196,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void updateRestaurantOwnerInDB(RestaurantOwner newRestaurantOwner, RestaurantOwner oldRestaurantOwner){
         try{
-            String query = "UPDATE restaurant_owner SET id = ?, name = ?, username = ?, password = ?, email = ?, phoneNumber = ?, address = ? WHERE id = ?";
+            String query = Constants.UPDATE_RESTAURANT_OWNER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, newRestaurantOwner.getId());
             preparedStmt.setString(2, newRestaurantOwner.getName());
@@ -214,7 +214,7 @@ public class UserRepository extends GenericRepository<User>{
     }
     protected void updateDriverInDB(Driver newDriver, Driver oldDriver){
         try{
-            String query = "UPDATE driver SET id = ?, name = ?, username = ?, password = ?, email = ?, phoneNumber = ?, address = ?, vehiclePlate = ?, vehicleType = ? WHERE id = ?";
+            String query = Constants.UPDATE_DRIVER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, newDriver.getId());
             preparedStmt.setString(2, newDriver.getName());

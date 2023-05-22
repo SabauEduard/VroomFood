@@ -1,11 +1,12 @@
 package csv.readers_writers;
 
 import models.Driver;
+import utils.Constants;
 import utils.VehicleType;
 
 public class DriverCSVReaderWriter implements ICSVReaderWriter<Driver>{
     private static DriverCSVReaderWriter instance = null;
-    private static final String FILE_NAME = "src\\Csv\\drivers.csv";
+    private static final String FILE_NAME = Constants.DRIVER_FILE_NAME;
     public static DriverCSVReaderWriter getInstance(){
         if(instance == null){
             instance = new DriverCSVReaderWriter();

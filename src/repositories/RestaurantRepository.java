@@ -3,6 +3,7 @@ package repositories;
 import models.Recipe;
 import models.Restaurant;
 import models.RestaurantOwner;
+import utils.Constants;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ public class RestaurantRepository extends GenericRepository<Restaurant>{
         super();
         try{
             Statement statement = databaseConfiguration.getConnection().createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM restaurant");
+            ResultSet result = statement.executeQuery(Constants.SELECT_ALL_RESTAURANTS);
             while(result.next()) {
                 Restaurant current = new Restaurant(result);
                 objectList.add(current);
@@ -31,7 +32,7 @@ public class RestaurantRepository extends GenericRepository<Restaurant>{
     @Override
     public void remove(Restaurant restaurant){
         try{
-            String query = "DELETE FROM restaurant WHERE id = ?";
+            String query = Constants.DELETE_RESTAURANT;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, restaurant.getId());
             preparedStmt.execute();
@@ -45,7 +46,7 @@ public class RestaurantRepository extends GenericRepository<Restaurant>{
     @Override
     public void update(Restaurant oldRestaurant, Restaurant newRestaurant){
         try{
-            String query = "UPDATE restaurant SET id = ?, name = ?, address = ?, phoneNumber = ? WHERE id = ?";
+            String query = Constants.UPDATE_RESTAURANT;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, newRestaurant.getId());
             preparedStmt.setString(2, newRestaurant.getName());
@@ -63,7 +64,7 @@ public class RestaurantRepository extends GenericRepository<Restaurant>{
     }
     public void add(Restaurant restaurant, RestaurantOwner restaurantOwner){
         try{
-            String query = "INSERT INTO restaurant (id, name, address, phoneNumber, restaurantOwnerId) VALUES (?, ?, ?, ?, ?)";
+            String query = Constants.INSERT_RESTAURANT;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, restaurant.getId());
             preparedStmt.setString(2,restaurant.getName());

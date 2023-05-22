@@ -2,12 +2,13 @@ package csv.readers_writers;
 
 import models.AuditEntry;
 import repositories.AuditRepository;
+import utils.Constants;
 
 import java.time.LocalDateTime;
 
 public class AuditService implements ICSVReaderWriter<AuditEntry>{
     private static AuditService instance = null;
-    private static final String FILE_NAME = "src\\Csv\\audit.csv";
+    private static final String FILE_NAME = Constants.AUDIT_FILE_NAME;
     private static AuditRepository auditRepository = new AuditRepository();
     public static AuditRepository getAuditRepository() {
         return auditRepository;

@@ -2,8 +2,10 @@ package models;
 
 import repositories.RestaurantRepository;
 import repositories.UserRepository;
+import utils.Constants;
 import utils.OrderStatusType;
 
+import java.lang.constant.Constable;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +143,7 @@ public class Order implements java.io.Serializable{
     public String toString() {
         StringBuilder result = new StringBuilder("Order " + this.id + "\n"
                 + "Customer: " + this.customer.getUsername() + "\n"
-                + "Driver: " + ((this.driver == null) ? "Driver not yet assigned\n":this.driver.getUsername() + "\n")
+                + "Driver: " + ((this.driver == null) ? Constants.DRIVER_NOT_ASSIGNED_MESSAGE:this.driver.getUsername() + "\n")
                 + "Restaurant: " + this.restaurant.getName() + "\n"
                 + "Delivery address: " + this.deliveryAddress + "\n"
                 + "Delivery time: " + this.deliveryTime + "\n"

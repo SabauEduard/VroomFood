@@ -1,5 +1,7 @@
 package config;
 
+import utils.Constants;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,9 +12,9 @@ public class DatabaseConfiguration {
 
     public DatabaseConfiguration(){
         try {
-            String url = "jdbc:mysql://127.0.0.1:3306/models";
-            String username = "root";
-            String pass = "root";
+            String url = Constants.DATABASE_URL;
+            String username = Constants.DATABASE_USERNAME;
+            String pass = Constants.DATABASE_PASSWORD;
             databaseConnection = DriverManager.getConnection(url, username, pass);
         }
         catch (SQLException e) {

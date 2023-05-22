@@ -1,9 +1,10 @@
 package csv.readers_writers;
 
 import models.Restaurant;
+import utils.Constants;
 
 public class RestaurantCSVReaderWriter implements ICSVReaderWriter<Restaurant>{
-    private static final String FILE_NAME = "src\\Csv\\restaurants.csv";
+    private static final String FILE_NAME = Constants.RESTAURANT_FILE_NAME;
     private static RestaurantCSVReaderWriter instance = null;
     public static RestaurantCSVReaderWriter getInstance() {
         if (instance == null) {

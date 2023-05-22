@@ -1,10 +1,11 @@
 package csv.readers_writers;
 
 import models.RestaurantOwner;
+import utils.Constants;
 
 public class RestaurantOwnerCSVReaderWriter implements ICSVReaderWriter<RestaurantOwner>{
     private static RestaurantOwnerCSVReaderWriter instance = null;
-    private static final String FILE_NAME = "src\\Csv\\restaurantOwners.csv";
+    private static final String FILE_NAME = Constants.RESTAURANT_OWNER_FILE_NAME;
     public static RestaurantOwnerCSVReaderWriter getInstance(){
         if(instance == null){
             instance = new RestaurantOwnerCSVReaderWriter();

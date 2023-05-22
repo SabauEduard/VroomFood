@@ -1,6 +1,7 @@
 package repositories;
 
 import models.*;
+import utils.Constants;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class OrderRepository extends GenericRepository<Order>{
     public OrderRepository(){
         super();
         try{
-            PreparedStatement statement = databaseConfiguration.getConnection().prepareStatement("SELECT * FROM order_order");
+            PreparedStatement statement = databaseConfiguration.getConnection().prepareStatement(Constants.SELECT_ALL_ORDERS);
             var result = statement.executeQuery();
             while(result.next()) {
                 Order current = new Order(result);
@@ -34,7 +35,7 @@ public class OrderRepository extends GenericRepository<Order>{
         return instance;
     }
     public List<Recipe> getRecipesFromTable(Order order){
-        String query = "SELECT * FROM order_recipe WHERE orderId = ?";
+        String query = Constants.SELECT_ORDER_RECIPE_BY_ID;
         List<Recipe> recipeList = new ArrayList<>();
         try{
             PreparedStatement statement = databaseConfiguration.getConnection().prepareStatement(query);
@@ -53,7 +54,7 @@ public class OrderRepository extends GenericRepository<Order>{
     }
     public void addToDB(Order order){
         try{
-            String query = "INSERT INTO order_order (id, totalPrice, deliveryAddress, deliveryTime, status, customerId, driverId, restaurantId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = Constants.INSERT_ORDER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, order.getId());
             preparedStmt.setInt(2, order.getTotalPrice());
@@ -70,7 +71,7 @@ public class OrderRepository extends GenericRepository<Order>{
         }
         for(Recipe recipe : order.getRecipes()){
             try{
-                String query = "INSERT INTO order_recipe (orderId, recipeId) VALUES (?, ?)";
+                String query = Constants.INSERT_ORDER_RECIPE;
                 PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
                 preparedStmt.setInt(1, order.getId());
                 preparedStmt.setInt(2, recipe.getId());
@@ -86,7 +87,7 @@ public class OrderRepository extends GenericRepository<Order>{
     public void remove(Order order){
         try {
             for(Recipe recipe : order.getRecipes()) {
-                String query = "DELETE FROM order_recipe WHERE orderId = ? AND recipeId = ?";
+                String query = Constants.DELETE_ORDER_RECIPE;
                 PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
                 preparedStmt.setInt(1, order.getId());
                 preparedStmt.setInt(2, recipe.getId());
@@ -98,7 +99,7 @@ public class OrderRepository extends GenericRepository<Order>{
 
         }
         try{
-            String query = "DELETE FROM order_order WHERE id = ?";
+            String query = Constants.DELETE_ORDER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, order.getId());
             preparedStmt.execute();
@@ -112,7 +113,7 @@ public class OrderRepository extends GenericRepository<Order>{
     @Override
     public void update(Order oldOrder, Order newOrder){
         try{
-            String query = "UPDATE order_order SET id = ?, totalPrice = ?, deliveryAddress = ?, deliveryTime = ?, status = ?, customerId = ?, driverId = ?, restaurantId = ? WHERE id = ?";
+            String query = Constants.UPDATE_ORDER;
             PreparedStatement preparedStmt = databaseConfiguration.getConnection().prepareStatement(query);
             preparedStmt.setInt(1, newOrder.getId());
             preparedStmt.setInt(2, newOrder.getTotalPrice());
