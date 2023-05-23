@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class AuditService implements ICSVReaderWriter<AuditEntry>{
     private static AuditService instance = null;
     private static final String FILE_NAME = Constants.AUDIT_FILE_NAME;
-    private static AuditRepository auditRepository = new AuditRepository();
+    private static AuditRepository auditRepository = AuditRepository.getInstance();
     public static AuditRepository getAuditRepository() {
         return auditRepository;
     }

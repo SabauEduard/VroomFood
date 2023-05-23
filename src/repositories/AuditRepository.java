@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuditRepository extends GenericRepository<AuditEntry>{
-    public AuditRepository(List<AuditEntry> objectList) {
+    private static final AuditRepository instance = new AuditRepository();
+    private AuditRepository(List<AuditEntry> objectList) {
         super(objectList);
     }
-    public AuditRepository() {
+    private AuditRepository() {
         super();
+    }
+    public static AuditRepository getInstance(){
+        return instance;
     }
     public List<AuditEntry> getAuditEntryByAction(String action) {
         List<AuditEntry> auditEntryList = new ArrayList<>();

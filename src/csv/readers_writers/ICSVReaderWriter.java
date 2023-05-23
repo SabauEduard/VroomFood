@@ -13,8 +13,7 @@ public interface ICSVReaderWriter<T extends Serializable> {
         return WRITING_FILE_NAME;
     }
     T processCSVLine(String line);
-    String convertObjectToCSVLine(T object);
-    default List<T> read() {
+    String convertObjectToCSVLine(T object);default List<T> read() {
         File file = new File(getReadingFileName());
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             List<T> resultLines = new ArrayList<>();
@@ -34,6 +33,7 @@ public interface ICSVReaderWriter<T extends Serializable> {
             return Collections.emptyList();
         }
     }
+
 
     default void write(T object){
         File file = new File(getWritingFileName());

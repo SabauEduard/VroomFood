@@ -16,7 +16,7 @@ public class AppService {
     private static UserRepository userRepository = UserRepository.getInstance();
     private static RestaurantRepository restaurantRepository = RestaurantRepository.getInstance();
     private static RecipeRepository recipeRepository = RecipeRepository.getInstance();
-    private static OrderRepository orderRepository = new OrderRepository();
+    private static OrderRepository orderRepository = OrderRepository.getInstance();
     private static User currentUser = null;
     private static Set<Order> ordersToDeliver = new HashSet<>();
     private AppService() {

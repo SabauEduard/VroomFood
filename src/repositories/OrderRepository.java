@@ -9,7 +9,7 @@ import java.util.List;
 
 public class OrderRepository extends GenericRepository<Order>{
     private static final OrderRepository instance = new OrderRepository();
-    public OrderRepository(){
+    private OrderRepository(){
         super();
         try{
             PreparedStatement statement = databaseConfiguration.getConnection().prepareStatement(Constants.SELECT_ALL_ORDERS);
